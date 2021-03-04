@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bitstruct (0.1.0)
+    ffi-bitstruct (0.0.0)
       ffi
 
 GEM
@@ -35,8 +35,8 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  bitstruct!
   bundler
+  ffi-bitstruct!
   minitest
   rake
   rubocop
