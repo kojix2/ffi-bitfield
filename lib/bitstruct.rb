@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "bitstruct/version"
+require_relative 'bitstruct/version'
 
 module Bitstruct
   class Error < StandardError; end
