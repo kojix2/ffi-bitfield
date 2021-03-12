@@ -15,21 +15,18 @@ gem install ffi-bitstruct
 ```ruby
 require 'ffi/bitstruct'
 
-class Sample < ::FFI::BitStruct
+class Struct1 < FFI::BitStruct
   layout \
-    :a,   :uint32,
-    :b,   :int32,
+    :a, :uint8,
+    :b, :uint8
 
-  bitfields :a, 
-    :ax,       2,
-    :ay,       2,
-    :az,       3
-
-  bitfields :b, 
-    :bx,       2,
-    :by,       2,
-    :bz,       3
-end
+  bitfields :a,
+    :u, 2,
+    :v, 2,
+    :w, 1,
+    :x, 1,
+    :y, 1,
+    :z, 1
 ```
 
 ## Development
