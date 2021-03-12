@@ -51,7 +51,7 @@ bundle exec rake test
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/bitstruct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/kojix2/bitstruct.
 
 ## License
 
