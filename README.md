@@ -1,4 +1,4 @@
-# BitStruct
+# ffi-bitstruct
 
 bit field for [Ruby-FFI](https://github.com/ffi/ffi)
 
@@ -13,27 +13,33 @@ gem install ffi-bitstruct
 ## Usage
 
 ```ruby
-    class Sample < ::FFI::BitStruct
-      layout \
-        :aaa,            :uint32,
-        :bbb,            :int32,
-        :ccc,            :int32,
-        :ddd,            :int32,
+require 'ffi/bitstruct'
 
-      bitfields :aaa, 
-        :a,       2,
-        :b,       2,
-        :c,       3
+class Sample < ::FFI::BitStruct
+  layout \
+    :a,   :uint32,
+    :b,   :int32,
 
-      bitfields :bbb, 
-        :d,       2,
-        :e,       2,
-        :f,       3
-    end
+  bitfields :a, 
+    :ax,       2,
+    :ay,       2,
+    :az,       3
+
+  bitfields :b, 
+    :bx,       2,
+    :by,       2,
+    :bz,       3
+end
 ```
 
 ## Development
 
+```
+git clone https://github.com/kojix2/ffi-bitstruct
+cd ffi-bitstruct
+bundle install
+bundle exec rake test
+```
 
 ## Contributing
 
