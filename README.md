@@ -1,6 +1,6 @@
 # ffi-bitstruct
 
-bit field for [Ruby-FFI](https://github.com/ffi/ffi)
+Bit field for [Ruby-FFI](https://github.com/ffi/ffi).
 
 :construction: alpha
 
@@ -27,6 +27,17 @@ class Struct1 < FFI::BitStruct
     :x, 1,
     :y, 1,
     :z, 1
+end
+
+s = Struct1.new
+s[:a] = 63
+
+p s[:u] # 3
+p s[:v] # 3
+p s[:w] # 1
+p s[:x] # 1
+p s[:y] # 0
+p s[:z] # 0
 ```
 
 ## Development
