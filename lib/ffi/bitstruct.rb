@@ -51,5 +51,3 @@ module FFI
     end
   end
 end
-
-require_relative 'bitstruct/version'
