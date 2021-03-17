@@ -1,8 +1,11 @@
 # ffi-bitstruct
 
+[![Gem Version](https://badge.fury.io/rb/ffi-bitstruct.svg)](https://badge.fury.io/rb/ffi-bitstruct)
+[![CI](https://github.com/kojix2/ffi-bitstruct/actions/workflows/main.yml/badge.svg)](https://github.com/kojix2/ffi-bitstruct/actions/workflows/main.yml)
+
 Bit field for [Ruby-FFI](https://github.com/ffi/ffi).
 
-:construction: alpha
+:construction: alpha　ー Supports reading bit fields only.
 
 ## Installation
 
