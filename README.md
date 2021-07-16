@@ -5,8 +5,6 @@
 
 Bit field for [Ruby-FFI](https://github.com/ffi/ffi)
 
-:construction: alpha　ー Supports reading bit fields only.
-
 ## Installation
 
 ```sh
@@ -75,6 +73,7 @@ bundle exec rake test
 
 ## Contributing
 
+ffi-bitfield is a library under development, so even small improvements like typofix are welcome! Please feel free to send us your pull requests.
 Bug reports and pull requests are welcome on GitHub at https://github.com/kojix2/bitstruct.
 
 ## License
