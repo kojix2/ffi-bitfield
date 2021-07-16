@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/kojix2/ffi-bitfield'
   spec.license       = 'MIT'
 
-  spec.required_ruby_version = '>= 2.4'
+  spec.required_ruby_version = '>= 2.7'
 
   spec.files = Dir['*.{md,txt}', '{lib}/**/*']
   spec.require_paths = ['lib']
