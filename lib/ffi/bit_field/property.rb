@@ -2,7 +2,10 @@
 
 module FFI
   module BitField
+    # Properties provides methods to read and write bit fields.
     module Property
+      # @param [Symbol] member_name
+      # @return [Integer] value
       def [](member_name)
         bit_fields = self.class.instance_variable_get(:@bit_field_hash_table)
         parent_name, start, width = bit_fields[member_name]

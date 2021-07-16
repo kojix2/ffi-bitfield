@@ -6,6 +6,7 @@ require_relative 'bit_field/layout'
 require_relative 'bit_field/property'
 
 module FFI
+  # Subclass of FFI::Struct that support bit fields.
   class BitStruct < Struct
     # [] is defined in FFI::Struct
     alias get_member_value []
