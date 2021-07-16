@@ -7,8 +7,8 @@ require_relative 'bit_field/property'
 
 module FFI
   class ManagedBitStruct < ManagedStruct
-    alias get_member []
+    alias get_member_value []
     extend BitField::Layout
-    prepend BitField::Property
+    include BitField::Property
   end
 end
