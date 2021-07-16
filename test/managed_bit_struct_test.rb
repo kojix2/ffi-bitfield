@@ -4,7 +4,7 @@ require 'test_helper'
 require 'ffi/managed_bit_struct'
 
 class ManagedBitStructTest < Minitest::Test
-  class Struct2 < FFI::ManagedBitStruct
+  @rv = class Struct2 < FFI::ManagedBitStruct
     layout \
       :a, :uint8,
       :b, :uint8
@@ -19,16 +19,23 @@ class ManagedBitStructTest < Minitest::Test
                :a6, 1,
                :a7, 1
 
-    bit_fields :b,
-               :b0, 1,
-               :b1, 1,
-               :b2, 2,
-               :b3, 4
+    rv = bit_fields :b,
+                    :b0, 1,
+                    :b1, 1,
+                    :b2, 2,
+                    :b3, 4
 
     def self.release(ptr)
       # Do nothing.
       # Memory pointers will be released automatically.
     end
+
+    rv
+  end
+
+  def test_returned_value
+    rv = self.class.instance_variable_get(:@rv)
+    assert_equal :b, rv
   end
 
   256.times do |i|

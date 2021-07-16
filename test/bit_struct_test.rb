@@ -4,7 +4,7 @@ require 'test_helper'
 require 'ffi/bit_struct'
 
 class BitStructTest < Minitest::Test
-  class Struct1 < FFI::BitStruct
+  @rv = class Struct1 < FFI::BitStruct
     layout \
       :a, :uint8,
       :b, :uint8
@@ -24,6 +24,11 @@ class BitStructTest < Minitest::Test
                :b1, 1,
                :b2, 2,
                :b3, 4
+  end
+
+  def test_returned_value
+    rv = self.class.instance_variable_get(:@rv)
+    assert_equal :b, rv
   end
 
   256.times do |i|
