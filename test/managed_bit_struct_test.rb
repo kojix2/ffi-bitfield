@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-require 'ffi/bit_struct'
+require 'ffi/managed_bit_struct'
 
-class BitStructTest < Minitest::Test
-  class Struct1 < FFI::BitStruct
+class ManagedBitStructTest < Minitest::Test
+  class Struct2 < FFI::ManagedBitStruct
     layout \
       :a, :uint8,
       :b, :uint8
@@ -24,11 +24,18 @@ class BitStructTest < Minitest::Test
                :b1, 1,
                :b2, 2,
                :b3, 4
+
+    def self.release(ptr)
+      # Do nothing.
+      # Memory pointers will be released automatically.
+    end
   end
 
   256.times do |i|
     define_method("test_a_#{i}") do
-      s = Struct1.new
+      memory_pointer = FFI::MemoryPointer.new(:uint8, 2)
+      ptr = FFI::Pointer.new(memory_pointer)
+      s = Struct2.new(ptr)
       s[:a] = i
       v = s[:a0] +
           s[:a1] * 2 +
@@ -45,7 +52,9 @@ class BitStructTest < Minitest::Test
 
   256.times do |i|
     define_method("test_b_#{i}") do
-      s = Struct1.new
+      memory_pointer = FFI::MemoryPointer.new(:uint8, 2)
+      ptr = FFI::Pointer.new(memory_pointer)
+      s = Struct2.new(ptr)
       s[:b] = i
       v = s[:b0] +
           s[:b1] * 2 +
