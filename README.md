@@ -3,7 +3,7 @@
 [![Gem Version](https://badge.fury.io/rb/ffi-bitfield.svg)](https://badge.fury.io/rb/ffi-bitfield)
 [![test](https://github.com/kojix2/ffi-bitfield/actions/workflows/ci.yml/badge.svg)](https://github.com/kojix2/ffi-bitfield/actions/workflows/ci.yml)
 
-Bit field for [Ruby-FFI](https://github.com/ffi/ffi).
+Bit field for [Ruby-FFI](https://github.com/ffi/ffi)
 
 :construction: alpha　ー Supports reading bit fields only.
 
@@ -41,6 +41,35 @@ p s[:w] # 1
 p s[:x] # 1
 p s[:y] # 0
 p s[:z] # 0
+```
+
+### Loading
+
+```ruby
+require 'ffi/bit_field'
+```
+
+The above is the same as below.
+
+```ruby
+require 'ffi/bit_struct'
+require 'ffi/managed_bit_struct'
+```
+
+## API Overview
+
+```md
+* module FFI
+  * class BitStruct < FFI::Struct
+    * include BitFieldSupporter
+
+  * class ManagedBitStruct < FFI::ManagedStruct
+    * include BitFieldSupporter
+
+  * module BitField
+    * module BitFieldSupporter
+      * bit_fields
+      * bit_field <- alias of bit_fields
 ```
 
 ## Development
