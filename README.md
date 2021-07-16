@@ -1,7 +1,7 @@
 # ffi-bitfield
 
 [![Gem Version](https://badge.fury.io/rb/ffi-bitfield.svg)](https://badge.fury.io/rb/ffi-bitfield)
-[![CI](https://github.com/kojix2/ffi-bitfield/actions/workflows/main.yml/badge.svg)](https://github.com/kojix2/ffi-bitfield/actions/workflows/main.yml)
+[![test](https://github.com/kojix2/ffi-bitfield/actions/workflows/ci.yml/badge.svg)](https://github.com/kojix2/ffi-bitfield/actions/workflows/ci.yml)
 
 Bit field for [Ruby-FFI](https://github.com/ffi/ffi).
 
