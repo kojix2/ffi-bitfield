@@ -4,6 +4,9 @@ module FFI
   module BitField
     module Layout
       def bit_fields(*args)
+        # The reason for using class instance variable here instead of
+        # class variable is that sub-class of FFI::Struct cannot be inherited again,
+        # not because class instance variables are clean.
         @bit_field_hash_table = {} unless instance_variable_defined?(:@bit_field_hash_table)
 
         parent_name = args.shift
