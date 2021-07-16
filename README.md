@@ -1,7 +1,7 @@
-# ffi-bitstruct
+# ffi-bitfield
 
-[![Gem Version](https://badge.fury.io/rb/ffi-bitstruct.svg)](https://badge.fury.io/rb/ffi-bitstruct)
-[![CI](https://github.com/kojix2/ffi-bitstruct/actions/workflows/main.yml/badge.svg)](https://github.com/kojix2/ffi-bitstruct/actions/workflows/main.yml)
+[![Gem Version](https://badge.fury.io/rb/ffi-bitfield.svg)](https://badge.fury.io/rb/ffi-bitfield)
+[![CI](https://github.com/kojix2/ffi-bitfield/actions/workflows/main.yml/badge.svg)](https://github.com/kojix2/ffi-bitfield/actions/workflows/main.yml)
 
 Bit field for [Ruby-FFI](https://github.com/ffi/ffi).
 
@@ -10,13 +10,13 @@ Bit field for [Ruby-FFI](https://github.com/ffi/ffi).
 ## Installation
 
 ```sh
-gem install ffi-bitstruct
+gem install ffi-bitfield
 ```
 
 ## Usage
 
 ```ruby
-require 'ffi/bitstruct'
+require 'ffi/bit_struct'
 
 class Struct1 < FFI::BitStruct
   layout \
@@ -46,8 +46,8 @@ p s[:z] # 0
 ## Development
 
 ```
-git clone https://github.com/kojix2/ffi-bitstruct
-cd ffi-bitstruct
+git clone https://github.com/kojix2/ffi-bitfield
+cd ffi-bitfield
 bundle install
 bundle exec rake test
 ```
