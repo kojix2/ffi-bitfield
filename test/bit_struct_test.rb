@@ -4,27 +4,28 @@ require 'test_helper'
 require 'ffi/bit_struct'
 
 class BitStructTest < Minitest::Test
-  @rv = class Struct1 < FFI::BitStruct
-    layout \
-      :a, :uint8,
-      :b, :uint8
+  @rv = \
+    class Struct1 < FFI::BitStruct
+      layout \
+        :a, :uint8,
+        :b, :uint8
 
-    bit_fields :a,
-               :a0, 1,
-               :a1, 1,
-               :a2, 1,
-               :a3, 1,
-               :a4, 1,
-               :a5, 1,
-               :a6, 1,
-               :a7, 1
+      bit_fields :a,
+                 :a0, 1,
+                 :a1, 1,
+                 :a2, 1,
+                 :a3, 1,
+                 :a4, 1,
+                 :a5, 1,
+                 :a6, 1,
+                 :a7, 1
 
-    bit_fields :b,
-               :b0, 1,
-               :b1, 1,
-               :b2, 2,
-               :b3, 4
-  end
+      bit_fields :b,
+                 :b0, 1,
+                 :b1, 1,
+                 :b2, 2,
+                 :b3, 4
+    end
 
   def test_returned_value
     rv = self.class.instance_variable_get(:@rv)
