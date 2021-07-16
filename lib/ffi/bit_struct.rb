@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'ffi'
+require_relative 'bit_struct/version'
 
 module FFI
   class BitStruct < Struct
@@ -13,7 +13,7 @@ module FFI
       #   Class.new(FFI::Struct) { layout(*args) }
       # end
 
-      module BitFieldsModule
+      module BitFieldModule
         def [](name)
           bit_fields = self.class.bit_fields_hash_table
           parent, start, width = bit_fields[name]
@@ -24,14 +24,14 @@ module FFI
           end
         end
       end
-      private_constant :BitFieldsModule
+      private_constant :BitFieldModule
 
       attr_reader :bit_fields_hash_table
 
-      def bitfields(*args)
+      def bit_fields(*args)
         unless instance_variable_defined?(:@bit_fields_hash_table)
           @bit_fields_hash_table = {}
-          prepend BitFieldsModule
+          prepend BitFieldModule
         end
 
         parent = args.shift

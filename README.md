@@ -23,7 +23,7 @@ class Struct1 < FFI::BitStruct
     :a, :uint8,
     :b, :uint8
 
-  bitfields :a,
+  bit_fields :a,
     :u, 2,
     :v, 2,
     :w, 1,

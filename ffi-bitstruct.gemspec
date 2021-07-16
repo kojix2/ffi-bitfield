@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'lib/ffi/bitstruct/version'
+require_relative 'lib/ffi/bit_struct/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'ffi-bitstruct'
@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'bit fields for Ruby-FFI'
   spec.description   = 'bit fields for Ruby-FFI'
-  spec.homepage      = 'https://github.com/kojix2/bitstruct'
+  spec.homepage      = 'https://github.com/kojix2/ffi-bitstruct'
   spec.license       = 'MIT'
 
   spec.required_ruby_version = '>= 2.4'

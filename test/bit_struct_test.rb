@@ -8,7 +8,7 @@ class BitstructTest < Minitest::Test
       :a, :uint8,
       :b, :uint8
 
-    bitfields :a,
+    bit_fields :a,
               :a0, 1,
               :a1, 1,
               :a2, 1,
@@ -18,7 +18,7 @@ class BitstructTest < Minitest::Test
               :a6, 1,
               :a7, 1
 
-    bitfields :b,
+    bit_fields :b,
               :b0, 1,
               :b1, 1,
               :b2, 2,
