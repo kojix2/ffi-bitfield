@@ -33,7 +33,7 @@ class BitStructTest < Minitest::Test
   end
 
   256.times do |i|
-    define_method("test_a_#{i}") do
+    define_method("test_a#{i}_get") do
       s = Struct1.new
       s[:a] = i
       v = s[:a0] +
@@ -49,16 +49,60 @@ class BitStructTest < Minitest::Test
     end
   end
 
+  8.times do |i|
+    define_method("test_a#{i}_write") do
+      256.times do |j|
+        s = Struct1.new
+        s[:a] = j
+        v = s["a#{i}".to_sym]
+        s["a#{i}".to_sym] = 1
+        assert_equal 1, s["a#{i}".to_sym]
+        s["a#{i}".to_sym] = 0
+        assert_equal 0, s["a#{i}".to_sym]
+        s["a#{i}".to_sym] = v
+        assert_equal j, s[:a]
+        assert_raises do
+          s["a#{i}".to_sym] = 2
+        end
+      end
+    end
+  end
+
   256.times do |i|
-    define_method("test_b_#{i}") do
+    define_method("test_b#{i}_get") do
       s = Struct1.new
       s[:b] = i
-      v = s[:b0] +
-          s[:b1] * 2 +
-          s[:b2].to_s(2).reverse.each_char.map.with_index { |v, i| v.to_i * (2**(i + 2)) }.inject(:+) +
-          s[:b3].to_s(2).reverse.each_char.map.with_index { |v, i| v.to_i * (2**(i + 4)) }.inject(:+)
+      val = s[:b0] +
+            s[:b1] * 2 +
+            s[:b2].to_s(2).reverse.each_char.map.with_index { |v, j| v.to_i * (2**(j + 2)) }.inject(:+) +
+            s[:b3].to_s(2).reverse.each_char.map.with_index { |v, j| v.to_i * (2**(j + 4)) }.inject(:+)
       assert_equal i, s[:b]
-      assert_equal i, v
+      assert_equal i, val
+    end
+  end
+
+  define_method('test_b3_write') do
+    256.times do |j|
+      s = Struct1.new
+      s[:b] = j
+      v = s[:b3]
+      16.times do |k|
+        s[:b3] = k
+        assert_equal k, s[:b3]
+        if k == v
+          assert j == s[:b]
+        else
+          assert j != s[:b]
+        end
+        s[:b3] = -(k + 1)
+        assert_equal (15 - k), s[:b3]
+        assert_raises do
+          s[:b3] = 16
+        end
+        assert_raises do
+          s[:b3] = -17
+        end
+      end
     end
   end
 end

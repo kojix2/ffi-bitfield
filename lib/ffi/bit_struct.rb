@@ -10,6 +10,7 @@ module FFI
   class BitStruct < Struct
     # [] is defined in FFI::Struct
     alias get_member_value []
+    alias set_member_value []=
     extend BitField::Layout
     # The Property module included in the FFI::ManagedBitStruct class is
     # * behind the FFI::ManagedBitStruct class, but is
