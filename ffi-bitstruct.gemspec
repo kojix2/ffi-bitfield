@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'lib/ffi/bit_struct/version'
+require_relative 'lib/ffi/bit_field/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'ffi-bitfield'
-  spec.version       = FFI::BitStruct::VERSION
+  spec.version       = FFI::BitField::VERSION
   spec.authors       = ['kojix2']
   spec.email         = ['2xijok@gmail.com']
 
