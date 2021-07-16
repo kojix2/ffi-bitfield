@@ -9,20 +9,20 @@ class BitstructTest < Minitest::Test
       :b, :uint8
 
     bit_fields :a,
-              :a0, 1,
-              :a1, 1,
-              :a2, 1,
-              :a3, 1,
-              :a4, 1,
-              :a5, 1,
-              :a6, 1,
-              :a7, 1
+               :a0, 1,
+               :a1, 1,
+               :a2, 1,
+               :a3, 1,
+               :a4, 1,
+               :a5, 1,
+               :a6, 1,
+               :a7, 1
 
     bit_fields :b,
-              :b0, 1,
-              :b1, 1,
-              :b2, 2,
-              :b3, 4
+               :b0, 1,
+               :b1, 1,
+               :b2, 2,
+               :b3, 4
   end
 
   256.times do |i|
@@ -47,8 +47,8 @@ class BitstructTest < Minitest::Test
       s[:b] = i
       v = s[:b0] +
           s[:b1] * 2 +
-          s[:b2].to_s(2).reverse.each_char.map.with_index{|v, i| v.to_i * (2**(i+2))}.inject(:+) +
-          s[:b3].to_s(2).reverse.each_char.map.with_index{|v, i| v.to_i * (2**(i+4))}.inject(:+)
+          s[:b2].to_s(2).reverse.each_char.map.with_index { |v, i| v.to_i * (2**(i + 2)) }.inject(:+) +
+          s[:b3].to_s(2).reverse.each_char.map.with_index { |v, i| v.to_i * (2**(i + 4)) }.inject(:+)
       assert_equal i, v
     end
   end
