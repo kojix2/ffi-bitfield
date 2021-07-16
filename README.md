@@ -61,15 +61,7 @@ require 'ffi/managed_bit_struct'
 ```md
 * module FFI
   * class BitStruct < FFI::Struct
-    * include BitFieldSupporter
-
   * class ManagedBitStruct < FFI::ManagedStruct
-    * include BitFieldSupporter
-
-  * module BitField
-    * module BitFieldSupporter
-      * bit_fields
-      * bit_field <- alias of bit_fields
 ```
 
 ## Development

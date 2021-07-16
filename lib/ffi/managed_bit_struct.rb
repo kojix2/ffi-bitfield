@@ -2,10 +2,13 @@
 
 require 'ffi'
 require_relative 'bit_struct/version'
-require_relative 'bit_field_supporter'
+require_relative 'bit_field/layout'
+require_relative 'bit_field/property'
 
 module FFI
   class ManagedBitStruct < ManagedStruct
-    extend BitFiledSupporter
+    alias get_member []
+    extend BitField::Layout
+    prepend BitField::Property
   end
 end
