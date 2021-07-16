@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'ffi'
 require_relative 'bit_struct/version'
 
 module FFI
