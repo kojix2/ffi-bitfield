@@ -31,14 +31,23 @@ class Struct1 < FFI::BitStruct
 end
 
 s = Struct1.new
-s[:a] = 63
 
+# Reading
+s[:a] = 63
 p s[:u] # 3
 p s[:v] # 3
 p s[:w] # 1
 p s[:x] # 1
 p s[:y] # 0
 p s[:z] # 0
+
+# Writing
+s[:u] = 0
+s[:v] = 0
+s[:w] = 0
+s[:x] = 0
+s[:y] = 1
+p s[:a] # 64
 ```
 
 ### Loading
