@@ -13,9 +13,21 @@ gem install ffi-bitfield
 
 ## Usage
 
+Classes
+
+* class BitStruct < FFI::Struct
+* class ManagedBitStruct < FFI::ManagedStruct
+
+Loading
+
 ```ruby
 require 'ffi/bit_struct'
+require 'ffi/managed_bit_struct'
+```
 
+Define your struct
+
+```ruby
 class Struct1 < FFI::BitStruct
   layout \
     :a, :uint8,
@@ -29,10 +41,13 @@ class Struct1 < FFI::BitStruct
     :y, 1,
     :z, 1
 end
+```
 
+Reading
+
+```ruby
 s = Struct1.new
 
-# Reading
 s[:a] = 63
 p s[:u] # 3
 p s[:v] # 3
@@ -40,8 +55,13 @@ p s[:w] # 1
 p s[:x] # 1
 p s[:y] # 0
 p s[:z] # 0
+```
 
-# Writing
+Writing
+
+```ruby
+s = Struct1.new
+
 s[:u] = 0
 s[:v] = 0
 s[:w] = 0
@@ -63,14 +83,6 @@ require 'ffi/bit_struct'
 require 'ffi/managed_bit_struct'
 ```
 
-## API Overview
-
-```md
-* module FFI
-  * class BitStruct < FFI::Struct
-  * class ManagedBitStruct < FFI::ManagedStruct
-```
-
 ## Development
 
 ```
@@ -81,6 +93,8 @@ bundle exec rake test
 ```
 
 ## Contributing
+
+Your feedback is important.
 
 ffi-bitfield is a library under development, so even small improvements like typofix are welcome! Please feel free to send us your pull requests.
 Bug reports and pull requests are welcome on GitHub at https://github.com/kojix2/bitstruct.
