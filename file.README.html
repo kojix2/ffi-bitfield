@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.27
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'>
+<h1 id="label-ffi-bitfield">ffi-bitfield</h1>
+
+<p><a href="https://badge.fury.io/rb/ffi-bitfield"><img src="https://badge.fury.io/rb/ffi-bitfield.svg"></a> <a href="https://github.com/kojix2/ffi-bitfield/actions/workflows/ci.yml"><img src="https://github.com/kojix2/ffi-bitfield/actions/workflows/ci.yml/badge.svg"></a></p>
+
+<p>Bit field for <a href="https://github.com/ffi/ffi">Ruby-FFI</a></p>
+
+<h2 id="label-Installation">Installation</h2>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_ffi'>ffi</span><span class='op'>-</span><span class='id identifier rubyid_bitfield'>bitfield</span>
+</code></pre>
+
+<h2 id="label-Usage">Usage</h2>
+
+<p>Classes</p>
+<ul><li>
+<p>class BitStruct &lt; FFI::Struct</p>
+</li><li>
+<p>class ManagedBitStruct &lt; FFI::ManagedStruct</p>
+</li></ul>
+
+<p>Loading</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ffi/bit_struct</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ffi/managed_bit_struct</span><span class='tstring_end'>&#39;</span></span>
+</code></pre>
+
+<p>Define your struct</p>
+
+<pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>Struct1</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FFI/BitStruct.html" title="FFI::BitStruct (class)">BitStruct</a></span></span>
+  <span class='id identifier rubyid_layout'>layout</span> \
+    <span class='symbol'>:a</span><span class='comma'>,</span> <span class='symbol'>:uint8</span><span class='comma'>,</span>
+    <span class='symbol'>:b</span><span class='comma'>,</span> <span class='symbol'>:uint8</span>
+
+  <span class='id identifier rubyid_bit_fields'>bit_fields</span> <span class='symbol'>:a</span><span class='comma'>,</span>
+    <span class='symbol'>:u</span><span class='comma'>,</span> <span class='int'>2</span><span class='comma'>,</span>
+    <span class='symbol'>:v</span><span class='comma'>,</span> <span class='int'>2</span><span class='comma'>,</span>
+    <span class='symbol'>:w</span><span class='comma'>,</span> <span class='int'>1</span><span class='comma'>,</span>
+    <span class='symbol'>:x</span><span class='comma'>,</span> <span class='int'>1</span><span class='comma'>,</span>
+    <span class='symbol'>:y</span><span class='comma'>,</span> <span class='int'>1</span><span class='comma'>,</span>
+    <span class='symbol'>:z</span><span class='comma'>,</span> <span class='int'>1</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>Reading</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='const'>Struct1</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+
+<span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:a</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>63</span>
+<span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:u</span><span class='rbracket'>]</span> <span class='comment'># 3
+</span><span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:v</span><span class='rbracket'>]</span> <span class='comment'># 3
+</span><span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:w</span><span class='rbracket'>]</span> <span class='comment'># 1
+</span><span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:x</span><span class='rbracket'>]</span> <span class='comment'># 1
+</span><span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:y</span><span class='rbracket'>]</span> <span class='comment'># 0
+</span><span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:z</span><span class='rbracket'>]</span> <span class='comment'># 0
+</span></code></pre>
+
+<p>Writing</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='const'>Struct1</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+
+<span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:u</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>0</span>
+<span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:v</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>0</span>
+<span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:w</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>0</span>
+<span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:x</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>0</span>
+<span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:y</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>1</span>
+<span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:a</span><span class='rbracket'>]</span> <span class='comment'># 64
+</span></code></pre>
+
+<h3 id="label-Loading">Loading</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ffi/bit_field</span><span class='tstring_end'>&#39;</span></span>
+</code></pre>
+
+<p>The above is the same as below.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ffi/bit_struct</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ffi/managed_bit_struct</span><span class='tstring_end'>&#39;</span></span>
+</code></pre>
+
+<h2 id="label-Development">Development</h2>
+
+<pre class="code ruby"><code class="ruby">git clone https://github.com/kojix2/ffi-bitfield
+cd ffi-bitfield
+bundle install
+bundle exec rake test
+</code></pre>
+
+<h2 id="label-Contributing">Contributing</h2>
+
+<p>Your feedback is important.</p>
+
+<p>ffi-bitfield is a library under development, so even small improvements like typofix are welcome! Please feel free to send us your pull requests. Bug reports and pull requests are welcome on GitHub at <a href="https://github.com/kojix2/bitstruct">github.com/kojix2/bitstruct</a>.</p>
+
+<pre class="code ruby"><code class="ruby">Do you need commit rights to my repository?
+Do you want to get admin rights and take over the project?
+If so, please feel free to contact me @kojix2.
+</code></pre>
+
+<h2 id="label-License">License</h2>
+
+<p>The gem is available as open source under the terms of the <a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
+</div></div>
+
+      <div id="footer">
+  Generated on Thu Mar 24 13:34:48 2022 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.27 (ruby-3.1.1).
+</div>
+
+    </div>
+  </body>
+</html>
