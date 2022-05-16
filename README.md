@@ -99,7 +99,7 @@ bundle exec rake test
 Your feedback is important.
 
 ffi-bitfield is a library under development, so even small improvements like typofix are welcome! Please feel free to send us your pull requests.
-Bug reports and pull requests are welcome on GitHub at https://github.com/kojix2/bitstruct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/kojix2/ffi-bitfield.
 
     Do you need commit rights to my repository?
     Do you want to get admin rights and take over the project?
