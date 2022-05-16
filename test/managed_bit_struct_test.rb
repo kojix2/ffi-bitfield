@@ -40,7 +40,7 @@ class ManagedBitStructTest < Minitest::Test
   end
 
   256.times do |i|
-    define_method("test_a_#{i}") do
+    define_method("test_a#{i}_get") do
       memory_pointer = FFI::MemoryPointer.new(:uint8, 2)
       ptr = FFI::Pointer.new(memory_pointer)
       s = Struct2.new(ptr)
@@ -72,7 +72,7 @@ class ManagedBitStructTest < Minitest::Test
         assert_equal 0, s["a#{i}".to_sym]
         s["a#{i}".to_sym] = v
         assert_equal j, s[:a]
-        assert_raises do
+        assert_raise do
           s["a#{i}".to_sym] = 2
         end
       end
@@ -80,7 +80,7 @@ class ManagedBitStructTest < Minitest::Test
   end
 
   256.times do |i|
-    define_method("test_b_#{i}") do
+    define_method("test_b#{i}_get") do
       memory_pointer = FFI::MemoryPointer.new(:uint8, 2)
       ptr = FFI::Pointer.new(memory_pointer)
       s = Struct2.new(ptr)
@@ -91,6 +91,33 @@ class ManagedBitStructTest < Minitest::Test
             s[:b3].to_s(2).reverse.each_char.map.with_index { |v, j| v.to_i * (2**(j + 4)) }.inject(:+)
       assert_equal i, s[:b]
       assert_equal i, val
+    end
+  end
+
+  define_method('test_b3_write') do
+    256.times do |j|
+      memory_pointer = FFI::MemoryPointer.new(:uint8, 2)
+      ptr = FFI::Pointer.new(memory_pointer)
+      s = Struct2.new(ptr)
+      s[:b] = j
+      v = s[:b3]
+      16.times do |k|
+        s[:b3] = k
+        assert_equal k, s[:b3]
+        if k == v
+          assert j == s[:b]
+        else
+          assert j != s[:b]
+        end
+        s[:b3] = -(k + 1)
+        assert_equal (15 - k), s[:b3]
+        assert_raises do
+          s[:b3] = 16
+        end
+        assert_raises do
+          s[:b3] = -17
+        end
+      end
     end
   end
 end
