@@ -92,6 +92,8 @@ bundle install
 bundle exec rake test
 ```
 
+* [ffi-bitfield - read/write bit fields with Ruby-FFI](https://dev.to/kojix2/ffi-bitfield-g4h)
+
 ## Contributing
 
 Your feedback is important.
