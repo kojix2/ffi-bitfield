@@ -2,5 +2,9 @@
 
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in bitstruct.gemspec
 gemspec
+
+gem 'bundler'
+gem 'irb'
+gem 'minitest'
+gem 'rake'
