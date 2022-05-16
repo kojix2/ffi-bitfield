@@ -19,7 +19,7 @@ module FFI
       def []=(member_name, value)
         parent_name, start, width = member_value_info(member_name)
         if parent_name
-          raise "Value #{value} is larger than bit_length: #{width}" if value.bit_length > width
+          raise ArgumentError, "Value #{value} is larger than bit_length: #{width}" if value.bit_length > width
 
           parent_value = get_member_value(parent_name)
           new_value = (((1 << width) - 1 << start) & parent_value ^ parent_value) |

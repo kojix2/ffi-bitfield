@@ -61,7 +61,7 @@ class BitStructTest < Minitest::Test
         assert_equal 0, s["a#{i}".to_sym]
         s["a#{i}".to_sym] = v
         assert_equal j, s[:a]
-        assert_raises do
+        assert_raises(ArgumentError) do
           s["a#{i}".to_sym] = 2
         end
       end
@@ -96,10 +96,10 @@ class BitStructTest < Minitest::Test
         end
         s[:b3] = -(k + 1)
         assert_equal (15 - k), s[:b3]
-        assert_raises do
+        assert_raises(ArgumentError) do
           s[:b3] = 16
         end
-        assert_raises do
+        assert_raises(ArgumentError) do
           s[:b3] = -17
         end
       end

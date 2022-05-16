@@ -72,7 +72,7 @@ class ManagedBitStructTest < Minitest::Test
         assert_equal 0, s["a#{i}".to_sym]
         s["a#{i}".to_sym] = v
         assert_equal j, s[:a]
-        assert_raise do
+        assert_raises(ArgumentError) do
           s["a#{i}".to_sym] = 2
         end
       end
