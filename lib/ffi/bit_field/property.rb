@@ -10,7 +10,7 @@ module FFI
         parent_name, start, width = member_value_info(member_name)
         if parent_name
           value = get_member_value(parent_name)
-          value[start, width]
+          (value >> start) & ((1 << width) - 1)
         else
           get_member_value(member_name)
         end
@@ -22,9 +22,11 @@ module FFI
           raise ArgumentError, "Value #{value} is larger than bit_length: #{width}" if value.bit_length > width
 
           parent_value = get_member_value(parent_name)
-          new_value = (((1 << width) - 1 << start) & parent_value ^ parent_value) |
-                      (value << start)
+          mask = ((1 << width) - 1) << start
+          new_value = (parent_value & ~mask) | ((value & ((1 << width) - 1)) << start)
+          
           set_member_value(parent_name, new_value)
+          value
         else
           set_member_value(member_name, value)
         end
