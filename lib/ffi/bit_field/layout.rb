@@ -2,10 +2,24 @@
 
 module FFI
   module BitField
-    # Layout provides the `bit_fields` method for registering field members.
+    # Layout provides methods for defining bit field layouts.
+    # This module is extended by BitStruct and ManagedBitStruct classes.
     module Layout
-      # @param [Array] layout_args
-      # @return [Symbol] parent_name
+      # Defines bit fields within a parent field.
+      #
+      # @param [Array] layout_args An array where the first element is the parent field name,
+      #   followed by alternating field name and bit width pairs
+      # @return [Symbol] parent_name The name of the parent field
+      #
+      # @example Define bit fields in an 8-bit integer
+      #   bit_fields :flags,
+      #     :read,    1,  # 1 bit for read permission
+      #     :write,   1,  # 1 bit for write permission
+      #     :execute, 1,  # 1 bit for execute permission
+      #     :unused,  5   # 5 unused bits
+      #
+      # @note The total bit width should not exceed the size of the parent field.
+      #   For example, a :uint8 field can hold at most 8 bits.
       def bit_fields(*layout_args)
         # The reason for using class instance variable here instead of class variable
         # is not because class instance variables are clean,

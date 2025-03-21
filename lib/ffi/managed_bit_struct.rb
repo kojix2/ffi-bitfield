@@ -6,7 +6,28 @@ require_relative 'bit_field/layout'
 require_relative 'bit_field/property'
 
 module FFI
-  # Subclass of FFI::ManagedStruct that support bit fields.
+  # Subclass of FFI::ManagedStruct that supports bit fields.
+  # Combines memory management with bit field functionality.
+  #
+  # Use this class when you need automatic memory management for your structs
+  # with bit fields. You must implement the self.release method to handle
+  # memory cleanup.
+  #
+  # @example Define a managed struct with bit fields
+  #   class ManagedFlags < FFI::ManagedBitStruct
+  #     layout \
+  #       :value, :uint8
+  #
+  #     bit_fields :value,
+  #       :read,    1,
+  #       :write,   1,
+  #       :execute, 1,
+  #       :unused,  5
+  #
+  #     def self.release(ptr)
+  #       # Custom memory cleanup code
+  #     end
+  #   end
   class ManagedBitStruct < ManagedStruct
     # [] is defined in FFI::Struct
     alias get_member_value []
