@@ -180,4 +180,46 @@ class EdgeCasesTest < Minitest::Test
     assert_equal 0xF, s[:high]
     assert_equal 0xFFFF, s[:value]
   end
+
+  # Test without explicitly defining unused bits
+  def test_without_unused_field
+    cls = Class.new(FFI::BitStruct) do
+      layout \
+        :value, :uint8
+
+      bit_fields :value,
+                 :flag1, 1,
+                 :flag2, 1
+      # Remaining 6 bits are not defined
+    end
+
+    s = cls.new
+
+    # Set all bits to 1
+    s[:value] = 0xFF
+    assert_equal 0xFF, s[:value]
+    assert_equal 1, s[:flag1]
+    assert_equal 1, s[:flag2]
+
+    # Change only the defined bit fields
+    s[:flag1] = 0
+    assert_equal 0, s[:flag1]
+    assert_equal 1, s[:flag2]
+    assert_equal 0xFE, s[:value]  # 11111110
+
+    s[:flag2] = 0
+    assert_equal 0, s[:flag1]
+    assert_equal 0, s[:flag2]
+    assert_equal 0xFC, s[:value]  # 11111100
+
+    # Set all bits to 1 again
+    s[:value] = 0xFF
+
+    # Set negative value
+    s[:flag1] = -1 # For 1 bit, -1 becomes 1
+    assert_equal 1, s[:flag1]
+
+    # Test value out of range
+    assert_raises(ArgumentError) { s[:flag1] = 2 }
+  end
 end
