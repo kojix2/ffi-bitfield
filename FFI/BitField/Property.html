@@ -91,7 +91,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Properties provides methods to read and write bit fields.</p>
+<p>Property provides methods for reading and writing bit field values. This module is included in BitStruct and ManagedBitStruct classes.</p>
 
 
   </div>
@@ -132,7 +132,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Value.</p>
+<p>Reads a value from a bit field or regular field.</p>
 </div></span>
   
 </li>
@@ -141,7 +141,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#[]=-instance_method" title="#[]= (instance method)">#<strong>[]=</strong>(member_name, value)  &#x21d2; Object </a>
+      <a href="#[]=-instance_method" title="#[]= (instance method)">#<strong>[]=</strong>(member_name, value)  &#x21d2; Integer </a>
     
 
     
@@ -155,7 +155,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Writes a value to a bit field or regular field.</p>
+</div></span>
   
 </li>
 
@@ -181,13 +183,25 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns value.</p>
+<p>Reads a value from a bit field or regular field.</p>
 
 
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+        <h5 class="example_title"><div class='inline'>
+<p>Reading a bit field</p>
+</div></h5>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='symbol'>:flag1</span><span class='rbracket'>]</span>  <span class='comment'># =&gt; 1</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
@@ -198,6 +212,11 @@
         <span class='type'>(<tt>Symbol</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>The name of the field to read</p>
+</div>
       
     </li>
   
@@ -215,7 +234,7 @@
       
         &mdash;
         <div class='inline'>
-<p>value</p>
+<p>The value of the field</p>
 </div>
       
     </li>
@@ -228,18 +247,18 @@
       <pre class="lines">
 
 
-9
-10
-11
-12
-13
-14
 15
 16
-17</pre>
+17
+18
+19
+20
+21
+22
+23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/property.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/property.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_member_name'>member_name</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_parent_name'>parent_name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span> <span class='op'>=</span> <span class='id identifier rubyid_member_value_info'>member_value_info</span><span class='lparen'>(</span><span class='id identifier rubyid_member_name'>member_name</span><span class='rparen'>)</span>
@@ -258,51 +277,275 @@
       <div class="method_details ">
   <h3 class="signature " id="[]=-instance_method">
   
-    #<strong>[]=</strong>(member_name, value)  &#x21d2; <tt>Object</tt> 
+    #<strong>[]=</strong>(member_name, value)  &#x21d2; <tt>Integer</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Writes a value to a bit field or regular field.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+        <h5 class="example_title"><div class='inline'>
+<p>Writing to a bit field</p>
+</div></h5>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='symbol'>:flag1</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>1</span></code></pre>
+    
+      
+        <h5 class="example_title"><div class='inline'>
+<p>Writing a negative value (bit-flipped)</p>
+</div></h5>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='symbol'>:field</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='op'>-</span><span class='int'>1</span>  <span class='comment'># Sets all bits to 1</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>member_name</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The name of the field to write</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The value to write</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The written value</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>If the value is too large for the bit field</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>If the value is too small (negative) for the bit field</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>If the member name is not a valid bit field</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>TypeError</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>If the value is not an Integer</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33</pre>
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/property.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/property.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='op'>[]=</span><span class='lparen'>(</span><span class='id identifier rubyid_member_name'>member_name</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_parent_name'>parent_name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span> <span class='op'>=</span> <span class='id identifier rubyid_member_value_info'>member_value_info</span><span class='lparen'>(</span><span class='id identifier rubyid_member_name'>member_name</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_parent_name'>parent_name</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Value </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value'>value</span><span class='embexpr_end'>}</span><span class='tstring_content'> is larger than bit_length: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_width'>width</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_bit_length'>bit_length</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_width'>width</span>
-
-    <span class='id identifier rubyid_parent_value'>parent_value</span> <span class='op'>=</span> <span class='id identifier rubyid_get_member_value'>get_member_value</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_name'>parent_name</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_mask'>mask</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='int'>1</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_width'>width</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_start'>start</span>
-    <span class='id identifier rubyid_new_value'>new_value</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_parent_value'>parent_value</span> <span class='op'>&amp;</span> <span class='op'>~</span><span class='id identifier rubyid_mask'>mask</span><span class='rparen'>)</span> <span class='op'>|</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span> <span class='op'>&amp;</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='int'>1</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_width'>width</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_start'>start</span><span class='rparen'>)</span>
-    
-    <span class='id identifier rubyid_set_member_value'>set_member_value</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_name'>parent_name</span><span class='comma'>,</span> <span class='id identifier rubyid_new_value'>new_value</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_value'>value</span>
-  <span class='kw'>else</span>
-    <span class='id identifier rubyid_set_member_value'>set_member_value</span><span class='lparen'>(</span><span class='id identifier rubyid_member_name'>member_name</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+  <span class='comment'># Ensure value is an Integer
+</span>  <span class='kw'>unless</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>TypeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Value must be an Integer, got </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
+  
+  <span class='comment'># Get bit field information
+</span>  <span class='id identifier rubyid_field_info'>field_info</span> <span class='op'>=</span> <span class='id identifier rubyid_member_value_info'>member_value_info</span><span class='lparen'>(</span><span class='id identifier rubyid_member_name'>member_name</span><span class='rparen'>)</span>
+  
+  <span class='comment'># If not a bit field, delegate to regular field setter
+</span>  <span class='kw'>unless</span> <span class='id identifier rubyid_field_info'>field_info</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_set_member_value'>set_member_value</span><span class='lparen'>(</span><span class='id identifier rubyid_member_name'>member_name</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  
+  <span class='comment'># Extract bit field information
+</span>  <span class='id identifier rubyid_parent_name'>parent_name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span> <span class='op'>=</span> <span class='id identifier rubyid_field_info'>field_info</span>
+  
+  <span class='comment'># Calculate max value for this bit width
+</span>  <span class='id identifier rubyid_max_value'>max_value</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='int'>1</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_width'>width</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='int'>1</span>
+  
+  <span class='comment'># Handle negative values by bit-flipping
+</span>  <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_negative?'>negative?</span>
+    <span class='comment'># For negative values, we interpret them as bit-flipped positive values
+</span>    <span class='comment'># For example, with 4 bits, -1 becomes 1111 (15), -2 becomes 1110 (14), etc.
+</span>    
+    <span class='comment'># Check if the negative value is within range
+</span>    <span class='comment'># For bit-flipping, valid range is -(2^n) to -1
+</span>    <span class='id identifier rubyid_min_value'>min_value</span> <span class='op'>=</span> <span class='op'>-</span><span class='lparen'>(</span><span class='int'>1</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_width'>width</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span> <span class='op'>&lt;</span> <span class='id identifier rubyid_min_value'>min_value</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Value </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value'>value</span><span class='embexpr_end'>}</span><span class='tstring_content'> is too small for bit_length: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_width'>width</span><span class='embexpr_end'>}</span><span class='tstring_content'>, minimum is </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_min_value'>min_value</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+    
+    <span class='comment'># Convert negative value to bit-flipped positive value
+</span>    <span class='comment'># -1 -&gt; 15, -2 -&gt; 14, etc.
+</span>    <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_max_value'>max_value</span> <span class='op'>+</span> <span class='id identifier rubyid_value'>value</span> <span class='op'>+</span> <span class='int'>1</span>
+    
+    <span class='comment'># Sanity check after conversion
+</span>    <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_negative?'>negative?</span> <span class='op'>||</span> <span class='id identifier rubyid_value'>value</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_max_value'>max_value</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Internal error: converted value </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value'>value</span><span class='embexpr_end'>}</span><span class='tstring_content'> is out of range for bit_length: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_width'>width</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+  <span class='kw'>else</span>
+    <span class='comment'># For positive values, check if they fit in the bit width
+</span>    <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_max_value'>max_value</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Value </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value'>value</span><span class='embexpr_end'>}</span><span class='tstring_content'> is too large for bit_length: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_width'>width</span><span class='embexpr_end'>}</span><span class='tstring_content'>, maximum is </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_max_value'>max_value</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Update the parent field with the new bit field value
+</span>  <span class='id identifier rubyid_parent_value'>parent_value</span> <span class='op'>=</span> <span class='id identifier rubyid_get_member_value'>get_member_value</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_name'>parent_name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_mask'>mask</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='int'>1</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_width'>width</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_start'>start</span>
+  <span class='id identifier rubyid_new_value'>new_value</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_parent_value'>parent_value</span> <span class='op'>&amp;</span> <span class='op'>~</span><span class='id identifier rubyid_mask'>mask</span><span class='rparen'>)</span> <span class='op'>|</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span> <span class='op'>&amp;</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='int'>1</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_width'>width</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_start'>start</span><span class='rparen'>)</span>
+  
+  <span class='id identifier rubyid_set_member_value'>set_member_value</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_name'>parent_name</span><span class='comma'>,</span> <span class='id identifier rubyid_new_value'>new_value</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_value'>value</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -314,7 +557,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Mar 21 15:46:06 2025 by
+  Generated on Fri Mar 21 16:14:49 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.2).
 </div>
