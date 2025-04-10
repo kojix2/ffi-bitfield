@@ -117,6 +117,54 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#bit_field_layout-instance_method" title="#bit_field_layout (instance method)">#<strong>bit_field_layout</strong>  &#x21d2; Hash </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns a hash of bit fields with detailed layout information.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bit_field_members-instance_method" title="#bit_field_members (instance method)">#<strong>bit_field_members</strong>  &#x21d2; Hash </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns a hash of bit fields grouped by parent field.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#bit_fields-instance_method" title="#bit_fields (instance method)">#<strong>bit_fields</strong>(*layout_args)  &#x21d2; Symbol </a>
     
 
@@ -150,7 +198,211 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="bit_fields-instance_method">
+  <h3 class="signature first" id="bit_field_layout-instance_method">
+  
+    #<strong>bit_field_layout</strong>  &#x21d2; <tt>Hash</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a hash of bit fields with detailed layout information.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+        <h5 class="example_title"><div class='inline'>
+<p>Get detailed bit field layout in a struct</p>
+</div></h5>
+      
+      <pre class="example code"><code><span class='kw'>class</span> <span class='const'>Flags</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../BitStruct.html" title="FFI::BitStruct (class)">BitStruct</a></span></span>
+  <span class='id identifier rubyid_layout'>layout</span> \
+    <span class='symbol'>:value</span><span class='comma'>,</span> <span class='symbol'>:uint8</span>
+
+  <span class='id identifier rubyid_bit_fields'>bit_fields</span> <span class='symbol'>:value</span><span class='comma'>,</span>
+    <span class='symbol'>:read</span><span class='comma'>,</span>    <span class='int'>1</span><span class='comma'>,</span>
+    <span class='symbol'>:write</span><span class='comma'>,</span>   <span class='int'>1</span><span class='comma'>,</span>
+    <span class='symbol'>:execute</span><span class='comma'>,</span> <span class='int'>1</span><span class='comma'>,</span>
+    <span class='symbol'>:unused</span><span class='comma'>,</span>  <span class='int'>5</span>
+<span class='kw'>end</span>
+
+<span class='const'>Flags</span><span class='period'>.</span><span class='id identifier rubyid_bit_field_layout'>bit_field_layout</span>
+<span class='comment'># =&gt; {
+</span><span class='comment'>#      :value =&gt; {
+</span><span class='comment'>#        :read    =&gt; { :start =&gt; 0, :width =&gt; 1 },
+</span><span class='comment'>#        :write   =&gt; { :start =&gt; 1, :width =&gt; 1 },
+</span><span class='comment'>#        :execute =&gt; { :start =&gt; 2, :width =&gt; 1 },
+</span><span class='comment'>#        :unused  =&gt; { :start =&gt; 3, :width =&gt; 5 }
+</span><span class='comment'>#      }
+</span><span class='comment'>#    }</span></code></pre>
+    
+  </div>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A hash where keys are parent field names and values are hashes of bit field details</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/layout.rb', line 62</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bit_field_layout'>bit_field_layout</span>
+  <span class='kw'>return</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='kw'>unless</span> <span class='id identifier rubyid_instance_variable_defined?'>instance_variable_defined?</span><span class='lparen'>(</span><span class='symbol'>:@bit_field_hash_table</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='ivar'>@bit_field_hash_table</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_name'>field_name</span><span class='comma'>,</span> <span class='id identifier rubyid_info'>info</span><span class='op'>|</span>
+    <span class='id identifier rubyid_parent_name'>parent_name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span> <span class='op'>=</span> <span class='id identifier rubyid_info'>info</span>
+    <span class='id identifier rubyid_result'>result</span><span class='lbracket'>[</span><span class='id identifier rubyid_parent_name'>parent_name</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+    <span class='id identifier rubyid_result'>result</span><span class='lbracket'>[</span><span class='id identifier rubyid_parent_name'>parent_name</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_field_name'>field_name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>start:</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='label'>width:</span> <span class='id identifier rubyid_width'>width</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_result'>result</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bit_field_members-instance_method">
+  
+    #<strong>bit_field_members</strong>  &#x21d2; <tt>Hash</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a hash of bit fields grouped by parent field.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+        <h5 class="example_title"><div class='inline'>
+<p>Get bit field members in a struct</p>
+</div></h5>
+      
+      <pre class="example code"><code><span class='kw'>class</span> <span class='const'>Flags</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../BitStruct.html" title="FFI::BitStruct (class)">BitStruct</a></span></span>
+  <span class='id identifier rubyid_layout'>layout</span> \
+    <span class='symbol'>:value</span><span class='comma'>,</span> <span class='symbol'>:uint8</span>
+
+  <span class='id identifier rubyid_bit_fields'>bit_fields</span> <span class='symbol'>:value</span><span class='comma'>,</span>
+    <span class='symbol'>:read</span><span class='comma'>,</span>    <span class='int'>1</span><span class='comma'>,</span>
+    <span class='symbol'>:write</span><span class='comma'>,</span>   <span class='int'>1</span><span class='comma'>,</span>
+    <span class='symbol'>:execute</span><span class='comma'>,</span> <span class='int'>1</span><span class='comma'>,</span>
+    <span class='symbol'>:unused</span><span class='comma'>,</span>  <span class='int'>5</span>
+<span class='kw'>end</span>
+
+<span class='const'>Flags</span><span class='period'>.</span><span class='id identifier rubyid_bit_field_members'>bit_field_members</span>  <span class='comment'># =&gt; {:value =&gt; [:read, :write, :execute, :unused]}</span></code></pre>
+    
+  </div>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A hash where keys are parent field names and values are arrays of bit field names</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/layout.rb', line 25</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bit_field_members'>bit_field_members</span>
+  <span class='kw'>return</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='kw'>unless</span> <span class='id identifier rubyid_instance_variable_defined?'>instance_variable_defined?</span><span class='lparen'>(</span><span class='symbol'>:@bit_field_hash_table</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='ivar'>@bit_field_hash_table</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field_name'>field_name</span><span class='comma'>,</span> <span class='id identifier rubyid_info'>info</span><span class='op'>|</span>
+    <span class='id identifier rubyid_parent_name'>parent_name</span> <span class='op'>=</span> <span class='id identifier rubyid_info'>info</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_result'>result</span><span class='lbracket'>[</span><span class='id identifier rubyid_parent_name'>parent_name</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_result'>result</span><span class='lbracket'>[</span><span class='id identifier rubyid_parent_name'>parent_name</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_field_name'>field_name</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_result'>result</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bit_fields-instance_method">
   
     #<strong>bit_fields</strong>(*layout_args)  &#x21d2; <tt>Symbol</tt> 
   
@@ -241,31 +493,31 @@
       <pre class="lines">
 
 
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44</pre>
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/layout.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/layout.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bit_fields'>bit_fields</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_layout_args'>layout_args</span><span class='rparen'>)</span>
   <span class='comment'># The reason for using class instance variable here instead of class variable
@@ -299,7 +551,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Mar 21 16:43:37 2025 by
+  Generated on Thu Apr 10 05:12:29 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.2).
 </div>
