@@ -32,6 +32,36 @@ class BitStructTest < Minitest::Test
     assert_equal :b, rv
   end
 
+  def test_bit_field_members
+    expected = {
+      a: %i[a0 a1 a2 a3 a4 a5 a6 a7],
+      b: %i[b0 b1 b2 b3]
+    }
+    assert_equal expected, Struct1.bit_field_members
+  end
+
+  def test_bit_field_layout
+    expected = {
+      a: {
+        a0: { start: 0, width: 1 },
+        a1: { start: 1, width: 1 },
+        a2: { start: 2, width: 1 },
+        a3: { start: 3, width: 1 },
+        a4: { start: 4, width: 1 },
+        a5: { start: 5, width: 1 },
+        a6: { start: 6, width: 1 },
+        a7: { start: 7, width: 1 }
+      },
+      b: {
+        b0: { start: 0, width: 1 },
+        b1: { start: 1, width: 1 },
+        b2: { start: 2, width: 2 },
+        b3: { start: 4, width: 4 }
+      }
+    }
+    assert_equal expected, Struct1.bit_field_layout
+  end
+
   256.times do |i|
     define_method("test_a#{i}_get") do
       s = Struct1.new

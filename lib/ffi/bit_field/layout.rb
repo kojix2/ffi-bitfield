@@ -5,6 +5,72 @@ module FFI
     # Layout provides methods for defining bit field layouts.
     # This module is extended by BitStruct and ManagedBitStruct classes.
     module Layout
+      # Returns a hash of bit fields grouped by parent field.
+      #
+      # @return [Hash] A hash where keys are parent field names and values are arrays of bit field names
+      #
+      # @example Get bit field members in a struct
+      #   class Flags < FFI::BitStruct
+      #     layout \
+      #       :value, :uint8
+      #
+      #     bit_fields :value,
+      #       :read,    1,
+      #       :write,   1,
+      #       :execute, 1,
+      #       :unused,  5
+      #   end
+      #
+      #   Flags.bit_field_members  # => {:value => [:read, :write, :execute, :unused]}
+      def bit_field_members
+        return {} unless instance_variable_defined?(:@bit_field_hash_table)
+
+        result = {}
+        @bit_field_hash_table.each do |field_name, info|
+          parent_name = info[0]
+          result[parent_name] ||= []
+          result[parent_name] << field_name
+        end
+        result
+      end
+
+      # Returns a hash of bit fields with detailed layout information.
+      #
+      # @return [Hash] A hash where keys are parent field names and values are hashes of bit field details
+      #
+      # @example Get detailed bit field layout in a struct
+      #   class Flags < FFI::BitStruct
+      #     layout \
+      #       :value, :uint8
+      #
+      #     bit_fields :value,
+      #       :read,    1,
+      #       :write,   1,
+      #       :execute, 1,
+      #       :unused,  5
+      #   end
+      #
+      #   Flags.bit_field_layout
+      #   # => {
+      #   #      :value => {
+      #   #        :read    => { :start => 0, :width => 1 },
+      #   #        :write   => { :start => 1, :width => 1 },
+      #   #        :execute => { :start => 2, :width => 1 },
+      #   #        :unused  => { :start => 3, :width => 5 }
+      #   #      }
+      #   #    }
+      def bit_field_layout
+        return {} unless instance_variable_defined?(:@bit_field_hash_table)
+
+        result = {}
+        @bit_field_hash_table.each do |field_name, info|
+          parent_name, start, width = info
+          result[parent_name] ||= {}
+          result[parent_name][field_name] = { start: start, width: width }
+        end
+        result
+      end
+
       # Defines bit fields within a parent field.
       #
       # @param [Array] layout_args An array where the first element is the parent field name,

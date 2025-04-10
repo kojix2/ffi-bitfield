@@ -70,6 +70,42 @@ s[:y] = 1
 p s[:a] # 64
 ```
 
+### Inspecting Bit Fields
+
+You can use the `bit_field_members` method to get a hash of bit fields grouped by parent field:
+
+```ruby
+class Flags < FFI::BitStruct
+  layout \
+    :value, :uint8
+
+  bit_fields :value,
+    :read,    1,
+    :write,   1,
+    :execute, 1,
+    :unused,  5
+end
+
+p Flags.bit_field_members
+# => {:value=>[:read, :write, :execute, :unused]}
+```
+
+For more detailed information, you can use the `bit_field_layout` method:
+
+```ruby
+p Flags.bit_field_layout
+# => {
+#      :value => {
+#        :read    => { :start => 0, :width => 1 },
+#        :write   => { :start => 1, :width => 1 },
+#        :execute => { :start => 2, :width => 1 },
+#        :unused  => { :start => 3, :width => 5 }
+#      }
+#    }
+```
+
+These methods are useful for custom pretty printing or introspection of your bit struct classes.
+
 ### Loading
 
 ```ruby
