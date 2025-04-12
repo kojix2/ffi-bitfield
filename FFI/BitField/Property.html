@@ -186,6 +186,30 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bit_field_offsets-instance_method" title="#bit_field_offsets (instance method)">#<strong>bit_field_offsets</strong>  &#x21d2; Hash </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns a hash of bit fields with their bit offsets, grouped by parent field.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -271,18 +295,18 @@
       <pre class="lines">
 
 
-27
-28
-29
-30
-31
-32
-33
-34
-35</pre>
+41
+42
+43
+44
+45
+46
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/property.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/property.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_member_name'>member_name</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_parent_name'>parent_name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span> <span class='op'>=</span> <span class='id identifier rubyid_member_value_info'>member_value_info</span><span class='lparen'>(</span><span class='id identifier rubyid_member_name'>member_name</span><span class='rparen'>)</span>
@@ -457,20 +481,6 @@
       <pre class="lines">
 
 
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
 65
 66
 67
@@ -504,10 +514,24 @@
 95
 96
 97
-98</pre>
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/property.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/property.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='op'>[]=</span><span class='lparen'>(</span><span class='id identifier rubyid_member_name'>member_name</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='comment'># Ensure value is an Integer
@@ -634,12 +658,87 @@
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="bit_field_offsets-instance_method">
+  
+    #<strong>bit_field_offsets</strong>  &#x21d2; <tt>Hash</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a hash of bit fields with their bit offsets, grouped by parent field.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+        <h5 class="example_title"><div class='inline'>
+<p>Get bit field offsets in a struct instance</p>
+</div></h5>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_flags'>flags</span> <span class='op'>=</span> <span class='const'>Flags</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+<span class='id identifier rubyid_flags'>flags</span><span class='period'>.</span><span class='id identifier rubyid_bit_field_offsets'>bit_field_offsets</span>
+<span class='comment'># =&gt; {
+</span><span class='comment'>#      :value =&gt; [[:read, 0], [:write, 1], [:execute, 2], [:unused, 3]]
+</span><span class='comment'>#    }</span></code></pre>
+    
+  </div>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A hash where keys are parent field names and values are arrays of [bit_field_name, bit_offset] pairs</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+30
+31
+32</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/property.rb', line 30</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bit_field_offsets'>bit_field_offsets</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_bit_field_offsets'>bit_field_offsets</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Sat Apr 12 05:29:08 2025 by
+  Generated on Sat Apr 12 06:25:32 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.2).
 </div>
