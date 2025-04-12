@@ -2,9 +2,9 @@
 
 module FFI
   module BitField
-    # Property provides methods for reading and writing bit field values.
+    # InstanceMethods provides methods for reading and writing bit field values.
     # This module is included in BitStruct and ManagedBitStruct classes.
-    module Property
+    module InstanceMethods
       # Returns a hash of bit fields grouped by parent field.
       # Instance method version of the class method with the same name.
       #

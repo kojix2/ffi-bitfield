@@ -2,8 +2,8 @@
 
 require 'ffi'
 require_relative 'bit_field/version'
-require_relative 'bit_field/layout'
-require_relative 'bit_field/property'
+require_relative 'bit_field/class_methods'
+require_relative 'bit_field/instance_methods'
 
 module FFI
   # Subclass of FFI::ManagedStruct that supports bit fields.
@@ -32,13 +32,13 @@ module FFI
     # [] is defined in FFI::Struct
     alias get_member_value []
     alias set_member_value []=
-    extend BitField::Layout
-    # The Property module included in the FFI::BitStruct class is
+    extend BitField::ClassMethods
+    # The InstanceMethods module included in the FFI::BitStruct class is
     # * behind the FFI::BitStruct class, but is
     # * in FRONT of the FFI::Struct class.
     # `YourStruct.ancestors`
-    # # => [YourStruct, FFI::BitStruct, FFI::BitField::Property, FFI::Struct...]
+    # # => [YourStruct, FFI::BitStruct, FFI::BitField::InstanceMethods, FFI::Struct...]
     # So you do not need to use `prepend` instead of `include`.
-    include BitField::Property
+    include BitField::InstanceMethods
   end
 end

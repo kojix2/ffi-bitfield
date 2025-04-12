@@ -2,9 +2,9 @@
 
 module FFI
   module BitField
-    # Layout provides methods for defining bit field layouts.
+    # ClassMethods provides methods for defining bit field layouts.
     # This module is extended by BitStruct and ManagedBitStruct classes.
-    module Layout
+    module ClassMethods
       # Returns a hash of bit fields grouped by parent field.
       #
       # @return [Hash] A hash where keys are parent field names and values are arrays of bit field names
