@@ -7,8 +7,10 @@ class BitStructTest < Minitest::Test
   @rv = \
     class Struct1 < FFI::BitStruct
       layout \
+        :before, :int32,
         :a, :uint8,
-        :b, :uint8
+        :b, :uint8,
+        :after, :int32
 
       bit_fields :a,
                  :a0, 1,
@@ -32,7 +34,8 @@ class BitStructTest < Minitest::Test
     assert_equal :b, rv
   end
 
-  def test_bit_field_members
+  # Class method tests
+  def test_class_bit_field_members
     expected = {
       a: %i[a0 a1 a2 a3 a4 a5 a6 a7],
       b: %i[b0 b1 b2 b3]
@@ -40,7 +43,7 @@ class BitStructTest < Minitest::Test
     assert_equal expected, Struct1.bit_field_members
   end
 
-  def test_bit_field_layout
+  def test_class_bit_field_layout
     expected = {
       a: {
         a0: { start: 0, width: 1 },
@@ -62,6 +65,15 @@ class BitStructTest < Minitest::Test
     assert_equal expected, Struct1.bit_field_layout
   end
 
+  def test_class_bit_field_offsets
+    expected = {
+      a: [[:a0, 32], [:a1, 33], [:a2, 34], [:a3, 35], [:a4, 36], [:a5, 37], [:a6, 38], [:a7, 39]],
+      b: [[:b0, 40], [:b1, 41], [:b2, 42], [:b3, 44]]
+    }
+    assert_equal expected, Struct1.bit_field_offsets
+  end
+
+  # Instance method tests
   def test_instance_bit_field_members
     s = Struct1.new
     expected = {
@@ -69,6 +81,15 @@ class BitStructTest < Minitest::Test
       b: %i[b0 b1 b2 b3]
     }
     assert_equal expected, s.bit_field_members
+  end
+
+  def test_instance_bit_field_offsets
+    s = Struct1.new
+    expected = {
+      a: [[:a0, 32], [:a1, 33], [:a2, 34], [:a3, 35], [:a4, 36], [:a5, 37], [:a6, 38], [:a7, 39]],
+      b: [[:b0, 40], [:b1, 41], [:b2, 42], [:b3, 44]]
+    }
+    assert_equal expected, s.bit_field_offsets
   end
 
   256.times do |i|

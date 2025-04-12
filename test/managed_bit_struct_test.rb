@@ -7,8 +7,10 @@ class ManagedBitStructTest < Minitest::Test
   @rv = \
     class Struct2 < FFI::ManagedBitStruct
       layout \
+        :before, :uint8,
         :a, :uint8,
-        :b, :uint8
+        :b, :uint8,
+        :after, :uint8
 
       bit_fields :a,
                  :a0, 1,
@@ -39,7 +41,8 @@ class ManagedBitStructTest < Minitest::Test
     assert_equal :b, rv
   end
 
-  def test_bit_field_members
+  # Class method tests
+  def test_class_bit_field_members
     expected = {
       a: %i[a0 a1 a2 a3 a4 a5 a6 a7],
       b: %i[b0 b1 b2 b3]
@@ -47,7 +50,7 @@ class ManagedBitStructTest < Minitest::Test
     assert_equal expected, Struct2.bit_field_members
   end
 
-  def test_bit_field_layout
+  def test_class_bit_field_layout
     expected = {
       a: {
         a0: { start: 0, width: 1 },
@@ -69,8 +72,17 @@ class ManagedBitStructTest < Minitest::Test
     assert_equal expected, Struct2.bit_field_layout
   end
 
+  def test_class_bit_field_offsets
+    expected = {
+      a: [[:a0, 8], [:a1, 9], [:a2, 10], [:a3, 11], [:a4, 12], [:a5, 13], [:a6, 14], [:a7, 15]],
+      b: [[:b0, 16], [:b1, 17], [:b2, 18], [:b3, 20]]
+    }
+    assert_equal expected, Struct2.bit_field_offsets
+  end
+
+  # Instance method tests
   def test_instance_bit_field_members
-    memory_pointer = FFI::MemoryPointer.new(:uint8, 2)
+    memory_pointer = FFI::MemoryPointer.new(:uint8, 4)
     ptr = FFI::Pointer.new(memory_pointer)
     s = Struct2.new(ptr)
     expected = {
@@ -80,9 +92,20 @@ class ManagedBitStructTest < Minitest::Test
     assert_equal expected, s.bit_field_members
   end
 
+  def test_instance_bit_field_offsets
+    memory_pointer = FFI::MemoryPointer.new(:uint8, 4)
+    ptr = FFI::Pointer.new(memory_pointer)
+    s = Struct2.new(ptr)
+    expected = {
+      a: [[:a0, 8], [:a1, 9], [:a2, 10], [:a3, 11], [:a4, 12], [:a5, 13], [:a6, 14], [:a7, 15]],
+      b: [[:b0, 16], [:b1, 17], [:b2, 18], [:b3, 20]]
+    }
+    assert_equal expected, s.bit_field_offsets
+  end
+
   256.times do |i|
     define_method("test_a#{i}_get") do
-      memory_pointer = FFI::MemoryPointer.new(:uint8, 2)
+      memory_pointer = FFI::MemoryPointer.new(:uint8, 4)
       ptr = FFI::Pointer.new(memory_pointer)
       s = Struct2.new(ptr)
       s[:a] = i
@@ -102,7 +125,7 @@ class ManagedBitStructTest < Minitest::Test
   8.times do |i|
     define_method("test_a#{i}_write") do
       256.times do |j|
-        memory_pointer = FFI::MemoryPointer.new(:uint8, 2)
+        memory_pointer = FFI::MemoryPointer.new(:uint8, 4)
         ptr = FFI::Pointer.new(memory_pointer)
         s = Struct2.new(ptr)
         s[:a] = j
@@ -122,7 +145,7 @@ class ManagedBitStructTest < Minitest::Test
 
   256.times do |i|
     define_method("test_b#{i}_get") do
-      memory_pointer = FFI::MemoryPointer.new(:uint8, 2)
+      memory_pointer = FFI::MemoryPointer.new(:uint8, 4)
       ptr = FFI::Pointer.new(memory_pointer)
       s = Struct2.new(ptr)
       s[:b] = i
@@ -137,7 +160,7 @@ class ManagedBitStructTest < Minitest::Test
 
   define_method('test_b3_write') do
     256.times do |j|
-      memory_pointer = FFI::MemoryPointer.new(:uint8, 2)
+      memory_pointer = FFI::MemoryPointer.new(:uint8, 4)
       ptr = FFI::Pointer.new(memory_pointer)
       s = Struct2.new(ptr)
       s[:b] = j

@@ -17,6 +17,20 @@ module FFI
         self.class.bit_field_members
       end
 
+      # Returns a hash of bit fields with their bit offsets, grouped by parent field.
+      #
+      # @return [Hash] A hash where keys are parent field names and values are arrays of [bit_field_name, bit_offset] pairs
+      #
+      # @example Get bit field offsets in a struct instance
+      #   flags = Flags.new
+      #   flags.bit_field_offsets
+      #   # => {
+      #   #      :value => [[:read, 0], [:write, 1], [:execute, 2], [:unused, 3]]
+      #   #    }
+      def bit_field_offsets
+        self.class.bit_field_offsets
+      end
+
       # Reads a value from a bit field or regular field.
       #
       # @param [Symbol] member_name The name of the field to read

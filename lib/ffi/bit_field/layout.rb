@@ -71,6 +71,54 @@ module FFI
         result
       end
 
+      # Returns a hash of bit fields with their bit offsets, grouped by parent field.
+      #
+      # @return [Hash] A hash where keys are parent field names and values are arrays of [bit_field_name, bit_offset] pairs
+      #
+      # @example Get bit field offsets in a struct
+      #   class Flags < FFI::BitStruct
+      #     layout \
+      #       :value, :uint8
+      #
+      #     bit_fields :value,
+      #       :read,    1,
+      #       :write,   1,
+      #       :execute, 1,
+      #       :unused,  5
+      #   end
+      #
+      #   Flags.bit_field_offsets
+      #   # => {
+      #   #      :value => [[:read, 0], [:write, 1], [:execute, 2], [:unused, 3]]
+      #   #    }
+      def bit_field_offsets
+        return {} unless instance_variable_defined?(:@bit_field_hash_table)
+
+        result = {}
+
+        # Get byte offsets of parent fields
+        field_offsets = offsets.to_h
+
+        # Process each bit field
+        @bit_field_hash_table.each do |field_name, info|
+          parent_name, start, _width = info
+
+          # Get byte offset of parent field
+          parent_offset = field_offsets[parent_name]
+          next unless parent_offset
+
+          # Convert byte offset to bit offset and add bit field's start position
+          bit_offset = parent_offset * 8 + start
+
+          # Add to result
+          result[parent_name] ||= []
+          result[parent_name] << [field_name, bit_offset]
+        end
+
+        # Return result
+        result
+      end
+
       # Defines bit fields within a parent field.
       #
       # @param [Array] layout_args An array where the first element is the parent field name,
