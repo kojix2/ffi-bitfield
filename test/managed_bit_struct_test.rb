@@ -69,6 +69,17 @@ class ManagedBitStructTest < Minitest::Test
     assert_equal expected, Struct2.bit_field_layout
   end
 
+  def test_instance_bit_field_members
+    memory_pointer = FFI::MemoryPointer.new(:uint8, 2)
+    ptr = FFI::Pointer.new(memory_pointer)
+    s = Struct2.new(ptr)
+    expected = {
+      a: %i[a0 a1 a2 a3 a4 a5 a6 a7],
+      b: %i[b0 b1 b2 b3]
+    }
+    assert_equal expected, s.bit_field_members
+  end
+
   256.times do |i|
     define_method("test_a#{i}_get") do
       memory_pointer = FFI::MemoryPointer.new(:uint8, 2)

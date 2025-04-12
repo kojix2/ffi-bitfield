@@ -5,6 +5,18 @@ module FFI
     # Property provides methods for reading and writing bit field values.
     # This module is included in BitStruct and ManagedBitStruct classes.
     module Property
+      # Returns a hash of bit fields grouped by parent field.
+      # Instance method version of the class method with the same name.
+      #
+      # @return [Hash] A hash where keys are parent field names and values are arrays of bit field names
+      #
+      # @example Get bit field members in a struct instance
+      #   flags = Flags.new
+      #   flags.bit_field_members  # => {:value => [:read, :write, :execute, :unused]}
+      def bit_field_members
+        self.class.bit_field_members
+      end
+
       # Reads a value from a bit field or regular field.
       #
       # @param [Symbol] member_name The name of the field to read
