@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
-  Module: FFI::BitField::Property
+  Module: FFI::BitField::InstanceMethods
   
     &mdash; Documentation by YARD 0.9.37
   
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="../../css/common.css" type="text/css" />
 
 <script type="text/javascript">
-  pathId = "FFI::BitField::Property";
+  pathId = "FFI::BitField::InstanceMethods";
   relpath = '../../';
 </script>
 
@@ -36,10 +36,10 @@
       <div id="header">
         <div id="menu">
   
-    <a href="../../_index.html">Index (P)</a> &raquo;
+    <a href="../../_index.html">Index (I)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../../FFI.html" title="FFI (module)">FFI</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../BitField.html" title="FFI::BitField (module)">BitField</a></span></span>
      &raquo; 
-    <span class="title">Property</span>
+    <span class="title">InstanceMethods</span>
   
 </div>
 
@@ -59,7 +59,7 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><h1>Module: FFI::BitField::Property
+      <div id="content"><h1>Module: FFI::BitField::InstanceMethods
   
   
   
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/ffi/bit_field/property.rb</dd>
+    <dd>lib/ffi/bit_field/instance_methods.rb</dd>
   </dl>
   
 </div>
@@ -91,7 +91,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Property provides methods for reading and writing bit field values. This module is included in BitStruct and ManagedBitStruct classes.</p>
+<p>InstanceMethods provides methods for reading and writing bit field values. This module is included in BitStruct and ManagedBitStruct classes.</p>
 
 
   </div>
@@ -306,7 +306,7 @@
 49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/property.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/instance_methods.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_member_name'>member_name</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_parent_name'>parent_name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span> <span class='op'>=</span> <span class='id identifier rubyid_member_value_info'>member_value_info</span><span class='lparen'>(</span><span class='id identifier rubyid_member_name'>member_name</span><span class='rparen'>)</span>
@@ -531,7 +531,7 @@
 112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/property.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/instance_methods.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='op'>[]=</span><span class='lparen'>(</span><span class='id identifier rubyid_member_name'>member_name</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='comment'># Ensure value is an Integer
@@ -648,7 +648,7 @@
 18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/property.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/instance_methods.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bit_field_members'>bit_field_members</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_bit_field_members'>bit_field_members</span>
@@ -723,7 +723,7 @@
 32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/property.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/instance_methods.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bit_field_offsets'>bit_field_offsets</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_bit_field_offsets'>bit_field_offsets</span>
@@ -738,7 +738,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Apr 12 06:25:32 2025 by
+  Generated on Sat Apr 12 06:40:46 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.2).
 </div>
