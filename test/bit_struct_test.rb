@@ -165,4 +165,30 @@ class BitStructTest < Minitest::Test
       end
     end
   end
+
+  # Test regular FFI fields (non-bitfields) work correctly
+  def test_regular_fields
+    s = Struct1.new
+
+    # Test :before and :after fields (int32)
+    s[:before] = -2_147_483_648  # Minimum int32
+    assert_equal(-2_147_483_648, s[:before])
+
+    s[:before] = 2_147_483_647   # Maximum int32
+    assert_equal 2_147_483_647, s[:before]
+
+    s[:after] = -12_345
+    assert_equal(-12_345, s[:after])
+
+    s[:after] = 67_890
+    assert_equal 67_890, s[:after]
+
+    # Test that regular fields don't interfere with bitfields
+    s[:a] = 255
+    s[:b] = 255
+    assert_equal 255, s[:a]
+    assert_equal 255, s[:b]
+    assert_equal 67_890, s[:after] # Should still be the same
+    assert_equal 12_345, s[:after] = 12_345 # Should still work
+  end
 end

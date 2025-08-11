@@ -184,4 +184,32 @@ class ManagedBitStructTest < Minitest::Test
       end
     end
   end
+
+  # Test regular FFI fields (non-bitfields) work correctly
+  def test_regular_fields
+    memory_pointer = FFI::MemoryPointer.new(:uint8, 4)
+    ptr = FFI::Pointer.new(memory_pointer)
+    s = Struct2.new(ptr)
+
+    # Test :before and :after fields (uint8)
+    s[:before] = 0    # Minimum uint8
+    assert_equal 0, s[:before]
+
+    s[:before] = 255  # Maximum uint8
+    assert_equal 255, s[:before]
+
+    s[:after] = 123
+    assert_equal 123, s[:after]
+
+    s[:after] = 200
+    assert_equal 200, s[:after]
+
+    # Test that regular fields don't interfere with bitfields
+    s[:a] = 255
+    s[:b] = 255
+    assert_equal 255, s[:a]
+    assert_equal 255, s[:b]
+    assert_equal 200, s[:after] # Should still be the same
+    assert_equal 100, s[:after] = 100 # Should still work
+  end
 end

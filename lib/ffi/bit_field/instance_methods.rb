@@ -63,14 +63,14 @@ module FFI
       # @example Writing a negative value (bit-flipped)
       #   struct[:field] = -1  # Sets all bits to 1
       def []=(member_name, value)
-        # Ensure value is an Integer
-        raise TypeError, "Value must be an Integer, got #{value.class}" unless value.is_a?(Integer)
-
         # Get bit field information
         field_info = member_value_info(member_name)
 
         # If not a bit field, delegate to regular field setter
         return set_member_value(member_name, value) unless field_info
+
+        # Ensure value is an Integer (only for bit fields)
+        raise TypeError, "Value must be an Integer, got #{value.class}" unless value.is_a?(Integer)
 
         # Extract bit field information
         parent_name, start, width = field_info
