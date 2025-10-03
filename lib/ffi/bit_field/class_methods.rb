@@ -147,8 +147,9 @@ module FFI
           member_names << name.to_sym
           widths << width.to_i
         end
-        starts = widths.inject([0]) do |result, width|
-          result << (result.last + width)
+        starts = []
+        widths.each_with_index do |width, index|
+          starts[index] = index == 0 ? 0 : starts[index - 1] + widths[index - 1]
         end
         member_names.zip(starts, widths).each do |name, start, width|
           @bit_field_hash_table[name] = [parent_name, start, width]
@@ -188,8 +189,9 @@ module FFI
           types << type.to_sym
         end
 
-        starts = widths.inject([0]) do |result, width|
-          result << (result.last + width)
+        starts = []
+        widths.each_with_index do |width, index|
+          starts[index] = index == 0 ? 0 : starts[index - 1] + widths[index - 1]
         end
 
         member_names.zip(starts, widths, types).each do |name, start, width, type|
