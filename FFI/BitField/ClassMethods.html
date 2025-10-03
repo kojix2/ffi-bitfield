@@ -693,9 +693,7 @@
 153
 154
 155
-156
-157
-158</pre>
+156</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/class_methods.rb', line 137</span>
@@ -713,9 +711,7 @@
     <span class='id identifier rubyid_member_names'>member_names</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
     <span class='id identifier rubyid_widths'>widths</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_width'>width</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
   <span class='kw'>end</span>
-  <span class='id identifier rubyid_starts'>starts</span> <span class='op'>=</span> <span class='id identifier rubyid_widths'>widths</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_result'>result</span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span><span class='op'>|</span>
-    <span class='id identifier rubyid_result'>result</span> <span class='op'>&lt;&lt;</span> <span class='lparen'>(</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span> <span class='op'>+</span> <span class='id identifier rubyid_width'>width</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_starts'>starts</span> <span class='op'>=</span> <span class='id identifier rubyid_widths'>widths</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_width'>width</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='op'>|</span> <span class='id identifier rubyid_widths'>widths</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>...</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_sum'>sum</span> <span class='rbrace'>}</span>
   <span class='id identifier rubyid_member_names'>member_names</span><span class='period'>.</span><span class='id identifier rubyid_zip'>zip</span><span class='lparen'>(</span><span class='id identifier rubyid_starts'>starts</span><span class='comma'>,</span> <span class='id identifier rubyid_widths'>widths</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span><span class='op'>|</span>
     <span class='ivar'>@bit_field_hash_table</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_parent_name'>parent_name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span><span class='rbracket'>]</span>
   <span class='kw'>end</span>
@@ -837,6 +833,8 @@
       <pre class="lines">
 
 
+173
+174
 175
 176
 177
@@ -866,14 +864,10 @@
 201
 202
 203
-204
-205
-206
-207
-208</pre>
+204</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/class_methods.rb', line 175</span>
+      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/class_methods.rb', line 173</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bit_fields_typed'>bit_fields_typed</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_name'>parent_name</span><span class='comma'>,</span> <span class='id identifier rubyid_field_definitions'>field_definitions</span><span class='rparen'>)</span>
   <span class='ivar'>@bit_field_hash_table</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='kw'>unless</span> <span class='id identifier rubyid_instance_variable_defined?'>instance_variable_defined?</span><span class='lparen'>(</span><span class='symbol'>:@bit_field_hash_table</span><span class='rparen'>)</span>
@@ -891,9 +885,7 @@
     <span class='id identifier rubyid_types'>types</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
   <span class='kw'>end</span>
 
-  <span class='id identifier rubyid_starts'>starts</span> <span class='op'>=</span> <span class='id identifier rubyid_widths'>widths</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_result'>result</span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span><span class='op'>|</span>
-    <span class='id identifier rubyid_result'>result</span> <span class='op'>&lt;&lt;</span> <span class='lparen'>(</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span> <span class='op'>+</span> <span class='id identifier rubyid_width'>width</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_starts'>starts</span> <span class='op'>=</span> <span class='id identifier rubyid_widths'>widths</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_width'>width</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='op'>|</span> <span class='id identifier rubyid_widths'>widths</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>...</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_sum'>sum</span> <span class='rbrace'>}</span>
 
   <span class='id identifier rubyid_member_names'>member_names</span><span class='period'>.</span><span class='id identifier rubyid_zip'>zip</span><span class='lparen'>(</span><span class='id identifier rubyid_starts'>starts</span><span class='comma'>,</span> <span class='id identifier rubyid_widths'>widths</span><span class='comma'>,</span> <span class='id identifier rubyid_types'>types</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='op'>|</span>
     <span class='ivar'>@bit_field_hash_table</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_parent_name'>parent_name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span><span class='rbracket'>]</span>
@@ -919,7 +911,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Oct  3 08:30:14 2025 by
+  Generated on Fri Oct  3 22:10:23 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.6).
 </div>
