@@ -70,6 +70,35 @@ s[:y] = 1
 p s[:a] # 64
 ```
 
+### Typed Bit Fields
+
+You can use the `bit_fields_typed` method to define bit fields with type information. This method accepts a hash where keys are field names and values are arrays containing `[width, type]`. For boolean fields (width of 1 with `:bool` type), it automatically generates a `?` helper method:
+
+```ruby
+class AccessFlags < FFI::BitStruct
+  layout \
+    :flags, :uint8
+
+  bit_fields_typed :flags,
+    revoked: [1, :bool],      # Creates revoked and revoked? methods
+    expired: [1, :bool],      # Creates expired and expired? methods
+    some_string: [4, :string], # Creates some_string method (no ? helper)
+    reserved: [2, :int]       # Creates reserved method (no ? helper)
+end
+
+flags = AccessFlags.new
+flags[:revoked] = 1
+flags[:expired] = 0
+
+p flags.revoked?  # => true
+p flags.expired?  # => false
+
+flags[:expired] = 1
+p flags.expired?  # => true
+```
+
+The `?` methods are only generated for fields that are 1 bit wide and have type `:bool`. Other field types can be used for documentation purposes and future functionality.
+
 ### Inspecting Bit Fields
 
 You can use the `bit_field_members` method to get a hash of bit fields grouped by parent field:

@@ -157,6 +157,55 @@ module FFI
         parent_name
       end
       alias bit_field bit_fields
+
+      # Defines typed bit fields within a parent field using hash syntax.
+      #
+      # @param [Symbol] parent_name The name of the parent field
+      # @param [Hash] field_definitions A hash where keys are field names and values are arrays [width, type]
+      # @return [Symbol] parent_name The name of the parent field
+      #
+      # @example Define typed bit fields with automatic boolean helpers
+      #   bit_fields_typed :flags,
+      #     revoked: [1, :bool],      # Creates revoked and revoked? methods
+      #     expired: [1, :bool],      # Creates expired and expired? methods
+      #     some_string: [4, :string] # Creates some_string method
+      #
+      # @note For fields with width 1 and type :bool, a "?" helper method is automatically created
+      # @note The total bit width should not exceed the size of the parent field.
+      def bit_fields_typed(parent_name, field_definitions)
+        @bit_field_hash_table = {} unless instance_variable_defined?(:@bit_field_hash_table)
+        @bit_field_type_table = {} unless instance_variable_defined?(:@bit_field_type_table)
+
+        parent_name = parent_name.to_sym
+        member_names = []
+        widths = []
+        types = []
+
+        field_definitions.each do |name, definition|
+          width, type = definition
+          member_names << name.to_sym
+          widths << width.to_i
+          types << type.to_sym
+        end
+
+        starts = widths.inject([0]) do |result, width|
+          result << (result.last + width)
+        end
+
+        member_names.zip(starts, widths, types).each do |name, start, width, type|
+          @bit_field_hash_table[name] = [parent_name, start, width]
+          @bit_field_type_table[name] = type
+
+          # Generate "?" method for boolean fields with width 1
+          if width == 1 && type == :bool
+            define_method(:"#{name}?") do
+              self[name] == 1
+            end
+          end
+        end
+
+        parent_name
+      end
     end
   end
 end
