@@ -147,10 +147,7 @@ module FFI
           member_names << name.to_sym
           widths << width.to_i
         end
-        starts = []
-        widths.each_with_index do |width, index|
-          starts[index] = index == 0 ? 0 : starts[index - 1] + widths[index - 1]
-        end
+        starts = widths.each_with_index.map { |width, index| widths[0...index].sum }
         member_names.zip(starts, widths).each do |name, start, width|
           @bit_field_hash_table[name] = [parent_name, start, width]
         end
@@ -189,10 +186,7 @@ module FFI
           types << type.to_sym
         end
 
-        starts = []
-        widths.each_with_index do |width, index|
-          starts[index] = index == 0 ? 0 : starts[index - 1] + widths[index - 1]
-        end
+        starts = widths.each_with_index.map { |width, index| widths[0...index].sum }
 
         member_names.zip(starts, widths, types).each do |name, start, width, type|
           @bit_field_hash_table[name] = [parent_name, start, width]
