@@ -116,7 +116,8 @@ module FFI
       # @param [Symbol] member_name The name of the bit field
       # @return [Array, nil] An array containing [parent_name, start_bit, width] or nil if not a bit field
       def member_value_info(member_name)
-        self.class.instance_variable_get(:@bit_field_hash_table)[member_name]
+        hash_table = self.class.instance_variable_get(:@bit_field_hash_table)
+        hash_table&.[](member_name)
       end
     end
   end
