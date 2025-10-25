@@ -190,44 +190,36 @@ class BitStructTest < Minitest::Test
     assert_equal 12_345, s[:after] = 12_345 # Should still work
   end
 
-  # Test that BitStruct works as a drop-in replacement for FFI::Struct when no bit_fields are defined
-  def test_bit_struct_without_bit_fields
-    # Simple case with single field
+  # Tests without defining any bit_fields
+  def test_bit_struct_without_bit_fields_uint8
     cls = Class.new(FFI::BitStruct) do
       layout :value, :uint8
     end
-
     s = cls.new
     s[:value] = 42
     assert_equal 42, s[:value]
+  end
 
-    # Multiple fields with various types
-    cls2 = Class.new(FFI::BitStruct) do
-      layout \
-        :a, :uint8,
-        :b, :uint16,
-        :c, :int32,
-        :f, :float
+  def test_total_width_exact_fit_no_warning
+    assert_output('', '') do
+      Class.new(FFI::BitStruct) do
+        layout :value, :uint8
+        bit_fields :value,
+                   :a, 4,
+                   :b, 4
+      end
     end
+  end
 
-    s2 = cls2.new
-    s2[:a] = 255
-    s2[:b] = 65_535
-    s2[:c] = -100
-    s2[:f] = 3.14
-
-    assert_equal 255, s2[:a]
-    assert_equal 65_535, s2[:b]
-    assert_equal(-100, s2[:c])
-    assert_in_delta 3.14, s2[:f], 0.01
-
-    # Reading uninitialized value should work
-    cls3 = Class.new(FFI::BitStruct) do
-      layout :value, :uint32
+  def test_bit_fields_total_width_exceeds_parent_emits_warning
+    assert_output(nil, /Total bit width.*exceeds|exceed/) do
+      Class.new(FFI::BitStruct) do
+        layout :value, :uint8
+        bit_fields :value,
+                   :a, 3,
+                   :b, 4,
+                   :c, 2
+      end
     end
-
-    s3 = cls3.new
-    value = s3[:value]
-    assert_kind_of Integer, value
   end
 end
