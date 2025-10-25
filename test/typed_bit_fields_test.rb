@@ -126,4 +126,16 @@ class TypedBitFieldsTest < Minitest::Test
     }
     assert_equal expected, TypedStruct.bit_field_layout
   end
+
+  def test_bit_fields_typed_total_width_exceeds_parent_emits_warning
+    assert_output(nil, /Total bit width.*exceeds|exceed/) do
+      Class.new(FFI::BitStruct) do
+        layout :value, :uint16 # 16 bits available
+        bit_fields_typed :value,
+                         a: [8, :int],
+                         b: [8, :int],
+                         c: [4, :int] # 20 bits > 16
+      end
+    end
+  end
 end
