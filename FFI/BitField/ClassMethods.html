@@ -703,7 +703,12 @@
 161
 162
 163
-164</pre>
+164
+165
+166
+167
+168
+169</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/class_methods.rb', line 135</span>
@@ -720,6 +725,11 @@
   <span class='id identifier rubyid_layout_args'>layout_args</span><span class='period'>.</span><span class='id identifier rubyid_each_slice'>each_slice</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span><span class='op'>|</span>
     <span class='id identifier rubyid_member_names'>member_names</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
     <span class='id identifier rubyid_widths'>widths</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_width'>width</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Prevent redefining bit fields on the same parent field
+</span>  <span class='kw'>if</span> <span class='ivar'>@bit_field_hash_table</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid__n'>_n</span><span class='comma'>,</span> <span class='id identifier rubyid_info'>info</span><span class='op'>|</span> <span class='id identifier rubyid_info'>info</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='id identifier rubyid_parent_name'>parent_name</span> <span class='rbrace'>}</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bit_fields for :</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_parent_name'>parent_name</span><span class='embexpr_end'>}</span><span class='tstring_content'> already defined</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
 
   <span class='comment'># Validation: raise if total bit width exceeds parent field bit size
@@ -853,11 +863,6 @@
       <pre class="lines">
 
 
-181
-182
-183
-184
-185
 186
 187
 188
@@ -894,10 +899,20 @@
 219
 220
 221
-222</pre>
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/class_methods.rb', line 181</span>
+      <pre class="code"><span class="info file"># File 'lib/ffi/bit_field/class_methods.rb', line 186</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bit_fields_typed'>bit_fields_typed</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_name'>parent_name</span><span class='comma'>,</span> <span class='id identifier rubyid_field_definitions'>field_definitions</span><span class='rparen'>)</span>
   <span class='ivar'>@bit_field_hash_table</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='kw'>unless</span> <span class='id identifier rubyid_instance_variable_defined?'>instance_variable_defined?</span><span class='lparen'>(</span><span class='symbol'>:@bit_field_hash_table</span><span class='rparen'>)</span>
@@ -913,6 +928,11 @@
     <span class='id identifier rubyid_member_names'>member_names</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
     <span class='id identifier rubyid_widths'>widths</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_width'>width</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
     <span class='id identifier rubyid_types'>types</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Prevent redefining bit fields on the same parent field
+</span>  <span class='kw'>if</span> <span class='ivar'>@bit_field_hash_table</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid__n'>_n</span><span class='comma'>,</span> <span class='id identifier rubyid_info'>info</span><span class='op'>|</span> <span class='id identifier rubyid_info'>info</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='id identifier rubyid_parent_name'>parent_name</span> <span class='rbrace'>}</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bit_fields for :</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_parent_name'>parent_name</span><span class='embexpr_end'>}</span><span class='tstring_content'> already defined</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
 
   <span class='comment'># Validation: raise if total bit width exceeds parent field bit size
@@ -951,7 +971,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Oct 25 13:04:11 2025 by
+  Generated on Sat Oct 25 13:18:15 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.7).
 </div>
