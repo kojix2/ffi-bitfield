@@ -151,15 +151,8 @@ module FFI
           raise ArgumentError, "bit_fields for :#{parent_name} already defined"
         end
 
-        # Validation: raise if total bit width exceeds parent field bit size
-        parent_layout_field = layout[parent_name] # Returns nil if parent field not found
-        if parent_layout_field && parent_layout_field.respond_to?(:type)
-          parent_size_bits = parent_layout_field.type.size * 8
-          total_width = widths.sum
-          if total_width > parent_size_bits
-            raise ArgumentError, "Bit width #{total_width} exceeds :#{parent_name} size (#{parent_size_bits} bits)"
-          end
-        end
+        # Validate total width against parent size
+        validate_total_width(parent_name, widths)
         starts = widths.each_with_index.map { |_width, index| widths[0...index].sum }
         member_names.zip(starts, widths).each do |name, start, width|
           @bit_field_hash_table[name] = [parent_name, start, width]
@@ -204,15 +197,8 @@ module FFI
           raise ArgumentError, "bit_fields for :#{parent_name} already defined"
         end
 
-        # Validation: raise if total bit width exceeds parent field bit size
-        parent_layout_field = layout[parent_name] # Returns nil if parent field not found
-        if parent_layout_field && parent_layout_field.respond_to?(:type)
-          parent_size_bits = parent_layout_field.type.size * 8
-          total_width = widths.sum
-          if total_width > parent_size_bits
-            raise ArgumentError, "Bit width #{total_width} exceeds :#{parent_name} size (#{parent_size_bits} bits)"
-          end
-        end
+        # Validate total width against parent size
+        validate_total_width(parent_name, widths)
 
         starts = widths.each_with_index.map { |_width, index| widths[0...index].sum }
 
@@ -229,6 +215,22 @@ module FFI
         end
 
         parent_name
+      end
+      private
+
+      # Return parent field size in bits (nil if unknown)
+      def parent_size_bits(parent_name)
+        field = layout[parent_name] # nil if not found
+        return nil unless field&.respond_to?(:type)
+        field.type.size * 8
+      end
+
+      # Raise if total width exceeds parent size
+      def validate_total_width(parent_name, widths)
+        size = parent_size_bits(parent_name)
+        return unless size
+        total = widths.sum
+        raise ArgumentError, "Bit width #{total} exceeds :#{parent_name} size (#{size} bits)" if total > size
       end
     end
   end
