@@ -145,6 +145,16 @@ module FFI
           member_names << name.to_sym
           widths << width.to_i
         end
+
+        # Validation: raise if total bit width exceeds parent field bit size
+        parent_layout_field = layout[parent_name] # Returns nil if parent field not found
+        if parent_layout_field && parent_layout_field.respond_to?(:type)
+          parent_size_bits = parent_layout_field.type.size * 8
+          total_width = widths.sum
+          if total_width > parent_size_bits
+            raise ArgumentError, "Bit width #{total_width} exceeds :#{parent_name} size (#{parent_size_bits} bits)"
+          end
+        end
         starts = widths.each_with_index.map { |_width, index| widths[0...index].sum }
         member_names.zip(starts, widths).each do |name, start, width|
           @bit_field_hash_table[name] = [parent_name, start, width]
@@ -182,6 +192,16 @@ module FFI
           member_names << name.to_sym
           widths << width.to_i
           types << type.to_sym
+        end
+
+        # Validation: raise if total bit width exceeds parent field bit size
+        parent_layout_field = layout[parent_name] # Returns nil if parent field not found
+        if parent_layout_field && parent_layout_field.respond_to?(:type)
+          parent_size_bits = parent_layout_field.type.size * 8
+          total_width = widths.sum
+          if total_width > parent_size_bits
+            raise ArgumentError, "Bit width #{total_width} exceeds :#{parent_name} size (#{parent_size_bits} bits)"
+          end
         end
 
         starts = widths.each_with_index.map { |_width, index| widths[0...index].sum }
