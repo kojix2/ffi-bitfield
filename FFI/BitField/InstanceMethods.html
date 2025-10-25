@@ -312,7 +312,7 @@
   <span class='id identifier rubyid_parent_name'>parent_name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span> <span class='op'>=</span> <span class='id identifier rubyid_member_value_info'>member_value_info</span><span class='lparen'>(</span><span class='id identifier rubyid_member_name'>member_name</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_parent_name'>parent_name</span>
     <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_get_member_value'>get_member_value</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_name'>parent_name</span><span class='rparen'>)</span>
-    <span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span> <span class='op'>&gt;&gt;</span> <span class='id identifier rubyid_start'>start</span><span class='rparen'>)</span> <span class='op'>&amp;</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='int'>1</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_width'>width</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span>
+    <span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span> <span class='op'>&gt;&gt;</span> <span class='id identifier rubyid_start'>start</span><span class='rparen'>)</span> <span class='op'>&amp;</span> <span class='id identifier rubyid_max_value_for_width'>max_value_for_width</span><span class='lparen'>(</span><span class='id identifier rubyid_width'>width</span><span class='rparen'>)</span>
   <span class='kw'>else</span>
     <span class='id identifier rubyid_get_member_value'>get_member_value</span><span class='lparen'>(</span><span class='id identifier rubyid_member_name'>member_name</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
@@ -547,7 +547,7 @@
 </span>  <span class='id identifier rubyid_parent_name'>parent_name</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_width'>width</span> <span class='op'>=</span> <span class='id identifier rubyid_field_info'>field_info</span>
 
   <span class='comment'># Calculate max value for this bit width
-</span>  <span class='id identifier rubyid_max_value'>max_value</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='int'>1</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_width'>width</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='int'>1</span>
+</span>  <span class='id identifier rubyid_max_value'>max_value</span> <span class='op'>=</span> <span class='id identifier rubyid_max_value_for_width'>max_value_for_width</span><span class='lparen'>(</span><span class='id identifier rubyid_width'>width</span><span class='rparen'>)</span>
 
   <span class='comment'># Handle negative values by bit-flipping
 </span>  <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_negative?'>negative?</span>
@@ -576,8 +576,8 @@
 
   <span class='comment'># Update the parent field with the new bit field value
 </span>  <span class='id identifier rubyid_parent_value'>parent_value</span> <span class='op'>=</span> <span class='id identifier rubyid_get_member_value'>get_member_value</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_name'>parent_name</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_mask'>mask</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='int'>1</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_width'>width</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_start'>start</span>
-  <span class='id identifier rubyid_new_value'>new_value</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_parent_value'>parent_value</span> <span class='op'>&amp;</span> <span class='op'>~</span><span class='id identifier rubyid_mask'>mask</span><span class='rparen'>)</span> <span class='op'>|</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span> <span class='op'>&amp;</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='int'>1</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_width'>width</span><span class='rparen'>)</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_start'>start</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_mask'>mask</span> <span class='op'>=</span> <span class='id identifier rubyid_create_bitmask'>create_bitmask</span><span class='lparen'>(</span><span class='id identifier rubyid_width'>width</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_new_value'>new_value</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_parent_value'>parent_value</span> <span class='op'>&amp;</span> <span class='op'>~</span><span class='id identifier rubyid_mask'>mask</span><span class='rparen'>)</span> <span class='op'>|</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span> <span class='op'>&amp;</span> <span class='id identifier rubyid_max_value_for_width'>max_value_for_width</span><span class='lparen'>(</span><span class='id identifier rubyid_width'>width</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_start'>start</span><span class='rparen'>)</span>
 
   <span class='id identifier rubyid_set_member_value'>set_member_value</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_name'>parent_name</span><span class='comma'>,</span> <span class='id identifier rubyid_new_value'>new_value</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -738,7 +738,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Oct 25 12:53:41 2025 by
+  Generated on Sat Oct 25 13:04:11 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.7).
 </div>
