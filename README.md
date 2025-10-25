@@ -2,6 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/ffi-bitfield.svg)](https://badge.fury.io/rb/ffi-bitfield)
 [![test](https://github.com/kojix2/ffi-bitfield/actions/workflows/ci.yml/badge.svg)](https://github.com/kojix2/ffi-bitfield/actions/workflows/ci.yml)
+[![Lines of Code](https://img.shields.io/endpoint?url=https%3A%2F%2Ftokei.kojix2.net%2Fbadge%2Fgithub%2Fkojix2%2Fffi-bitfield%2Flines)](https://tokei.kojix2.net/github/kojix2/ffi-bitfield)
 
 Bit field for [Ruby-FFI](https://github.com/ffi/ffi)
 
@@ -15,8 +16,8 @@ gem install ffi-bitfield
 
 Classes
 
-* class BitStruct < FFI::Struct
-* class ManagedBitStruct < FFI::ManagedStruct
+- class BitStruct < FFI::Struct
+- class ManagedBitStruct < FFI::ManagedStruct
 
 Loading
 
@@ -157,7 +158,7 @@ bundle install
 bundle exec rake test
 ```
 
-* [ffi-bitfield - read/write bit fields with Ruby-FFI](https://dev.to/kojix2/ffi-bitfield-g4h)
+- [ffi-bitfield - read/write bit fields with Ruby-FFI](https://dev.to/kojix2/ffi-bitfield-g4h)
 
 ## Contributing
 
