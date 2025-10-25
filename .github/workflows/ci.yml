@@ -6,8 +6,8 @@ jobs:
     runs-on: ${{ matrix.os }}-latest
     strategy:
       matrix:
-        os:   ['ubuntu', 'macos', 'windows']
-        ruby: ['3.2', '3.3', '3.4']
+        os: ["ubuntu", "macos", "windows"]
+        ruby: ["3.2", "3.3", "3.4"]
     steps:
       - uses: actions/checkout@v5
       - uses: ruby/setup-ruby@v1
