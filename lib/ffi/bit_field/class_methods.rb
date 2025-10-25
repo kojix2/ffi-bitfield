@@ -151,7 +151,7 @@ module FFI
 
         # Validate total width against parent size
         validate_total_width(parent_name, widths)
-        starts = widths.each_with_index.map { |_width, index| widths[0...index].sum }
+        starts = bit_start_offsets(widths)
         member_names.zip(starts, widths).each do |name, start, width|
           @bit_field_hash_table[name] = [parent_name, start, width]
         end
@@ -196,7 +196,7 @@ module FFI
         # Validate total width against parent size
         validate_total_width(parent_name, widths)
 
-        starts = widths.each_with_index.map { |_width, index| widths[0...index].sum }
+        starts = bit_start_offsets(widths)
 
         member_names.zip(starts, widths, types).each do |name, start, width, type|
           @bit_field_hash_table[name] = [parent_name, start, width]
@@ -214,6 +214,18 @@ module FFI
       end
 
       private
+
+      # Return cumulative start positions for given widths
+      # e.g., [3, 4, 1] => [0, 3, 7]
+      def bit_start_offsets(widths)
+        starts = []
+        sum = 0
+        widths.each do |w|
+          starts << sum
+          sum += w
+        end
+        starts
+      end
 
       # Raise if the same parent already has bit fields
       def ensure_parent_not_defined(parent_name)
