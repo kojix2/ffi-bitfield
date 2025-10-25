@@ -147,7 +147,7 @@ module FFI
           member_names << name.to_sym
           widths << width.to_i
         end
-        starts = widths.each_with_index.map { |width, index| widths[0...index].sum }
+        starts = widths.each_with_index.map { |_width, index| widths[0...index].sum }
         member_names.zip(starts, widths).each do |name, start, width|
           @bit_field_hash_table[name] = [parent_name, start, width]
         end
@@ -186,17 +186,17 @@ module FFI
           types << type.to_sym
         end
 
-        starts = widths.each_with_index.map { |width, index| widths[0...index].sum }
+        starts = widths.each_with_index.map { |_width, index| widths[0...index].sum }
 
         member_names.zip(starts, widths, types).each do |name, start, width, type|
           @bit_field_hash_table[name] = [parent_name, start, width]
           @bit_field_type_table[name] = type
 
           # Generate "?" method for boolean fields with width 1
-          if width == 1 && type == :bool
-            define_method(:"#{name}?") do
-              self[name] == 1
-            end
+          next unless width == 1 && type == :bool
+
+          define_method(:"#{name}?") do
+            self[name] == 1
           end
         end
 

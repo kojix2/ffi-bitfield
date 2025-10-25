@@ -9,10 +9,10 @@ class TypedBitFieldsTest < Minitest::Test
       :flags, :uint8
 
     bit_fields_typed :flags,
-      revoked: [1, :bool],
-      expired: [1, :bool],
-      some_string: [4, :string],
-      unused: [2, :int]
+                     revoked: [1, :bool],
+                     expired: [1, :bool],
+                     some_string: [4, :string],
+                     unused: [2, :int]
   end
 
   def test_boolean_field_getter
