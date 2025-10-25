@@ -210,4 +210,22 @@ class ManagedBitStructTest < Minitest::Test
     assert_equal 200, s[:after] # Should still be the same
     assert_equal 100, s[:after] = 100 # Should still work
   end
+
+  # Test that ManagedBitStruct works without bit_fields
+  def test_managed_bit_struct_without_bit_fields
+    cls = Class.new(FFI::ManagedBitStruct) do
+      layout :value, :uint32
+
+      def self.release(ptr)
+        # Do nothing for testing
+      end
+    end
+
+    memory_pointer = FFI::MemoryPointer.new(:uint32, 1)
+    ptr = FFI::Pointer.new(memory_pointer)
+    s = cls.new(ptr)
+
+    s[:value] = 999_999
+    assert_equal 999_999, s[:value]
+  end
 end

@@ -189,4 +189,45 @@ class BitStructTest < Minitest::Test
     assert_equal 67_890, s[:after] # Should still be the same
     assert_equal 12_345, s[:after] = 12_345 # Should still work
   end
+
+  # Test that BitStruct works as a drop-in replacement for FFI::Struct when no bit_fields are defined
+  def test_bit_struct_without_bit_fields
+    # Simple case with single field
+    cls = Class.new(FFI::BitStruct) do
+      layout :value, :uint8
+    end
+
+    s = cls.new
+    s[:value] = 42
+    assert_equal 42, s[:value]
+
+    # Multiple fields with various types
+    cls2 = Class.new(FFI::BitStruct) do
+      layout \
+        :a, :uint8,
+        :b, :uint16,
+        :c, :int32,
+        :f, :float
+    end
+
+    s2 = cls2.new
+    s2[:a] = 255
+    s2[:b] = 65_535
+    s2[:c] = -100
+    s2[:f] = 3.14
+
+    assert_equal 255, s2[:a]
+    assert_equal 65_535, s2[:b]
+    assert_equal(-100, s2[:c])
+    assert_in_delta 3.14, s2[:f], 0.01
+
+    # Reading uninitialized value should work
+    cls3 = Class.new(FFI::BitStruct) do
+      layout :value, :uint32
+    end
+
+    s3 = cls3.new
+    value = s3[:value]
+    assert_kind_of Integer, value
+  end
 end
