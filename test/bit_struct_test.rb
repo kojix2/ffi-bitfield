@@ -211,8 +211,8 @@ class BitStructTest < Minitest::Test
     end
   end
 
-  def test_bit_fields_total_width_exceeds_parent_emits_warning
-    assert_output(nil, /Total bit width.*exceeds|exceed/) do
+  def test_bit_fields_total_width_exceeds_parent_raises
+    assert_raises(ArgumentError) do
       Class.new(FFI::BitStruct) do
         layout :value, :uint8
         bit_fields :value,
