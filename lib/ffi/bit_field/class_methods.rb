@@ -168,8 +168,8 @@ module FFI
       #
       # @example Define typed bit fields with automatic boolean helpers
       #   bit_fields_typed :flags,
-      #     revoked: [1, :bool],      # Creates revoked and revoked? methods
-      #     expired: [1, :bool],      # Creates expired and expired? methods
+      #     revoked: [1, :bool],      # Creates revoked? methods
+      #     expired: [1, :bool],      # Creates expired? methods
       #     some_string: [4, :string] # Creates some_string method
       #
       # @note For fields with width 1 and type :bool, a "?" helper method is automatically created

@@ -81,10 +81,10 @@ class AccessFlags < FFI::BitStruct
     :flags, :uint8
 
   bit_fields_typed :flags,
-    revoked: [1, :bool],      # Creates revoked and revoked? methods
-    expired: [1, :bool],      # Creates expired and expired? methods
-    some_string: [4, :string], # Creates some_string method (no ? helper)
-    reserved: [2, :int]       # Creates reserved method (no ? helper)
+    revoked: [1, :bool],       # Creates revoked? method
+    expired: [1, :bool],       # Creates expired? method
+    some_string: [4, :string],
+    reserved: [2, :int]
 end
 
 flags = AccessFlags.new
