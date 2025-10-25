@@ -146,6 +146,11 @@ module FFI
           widths << width.to_i
         end
 
+        # Prevent redefining bit fields on the same parent field
+        if @bit_field_hash_table.any? { |_n, info| info[0] == parent_name }
+          raise ArgumentError, "bit_fields for :#{parent_name} already defined"
+        end
+
         # Validation: raise if total bit width exceeds parent field bit size
         parent_layout_field = layout[parent_name] # Returns nil if parent field not found
         if parent_layout_field && parent_layout_field.respond_to?(:type)
@@ -192,6 +197,11 @@ module FFI
           member_names << name.to_sym
           widths << width.to_i
           types << type.to_sym
+        end
+
+        # Prevent redefining bit fields on the same parent field
+        if @bit_field_hash_table.any? { |_n, info| info[0] == parent_name }
+          raise ArgumentError, "bit_fields for :#{parent_name} already defined"
         end
 
         # Validation: raise if total bit width exceeds parent field bit size
