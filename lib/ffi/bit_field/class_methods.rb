@@ -147,9 +147,7 @@ module FFI
         end
 
         # Prevent redefining bit fields on the same parent field
-        if @bit_field_hash_table.any? { |_n, info| info[0] == parent_name }
-          raise ArgumentError, "bit_fields for :#{parent_name} already defined"
-        end
+        ensure_parent_not_defined(parent_name)
 
         # Validate total width against parent size
         validate_total_width(parent_name, widths)
@@ -193,9 +191,7 @@ module FFI
         end
 
         # Prevent redefining bit fields on the same parent field
-        if @bit_field_hash_table.any? { |_n, info| info[0] == parent_name }
-          raise ArgumentError, "bit_fields for :#{parent_name} already defined"
-        end
+        ensure_parent_not_defined(parent_name)
 
         # Validate total width against parent size
         validate_total_width(parent_name, widths)
@@ -218,6 +214,13 @@ module FFI
       end
 
       private
+
+      # Raise if the same parent already has bit fields
+      def ensure_parent_not_defined(parent_name)
+        return unless @bit_field_hash_table&.any? { |_n, info| info[0] == parent_name }
+
+        raise ArgumentError, "bit_fields for :#{parent_name} already defined"
+      end
 
       # Return parent field size in bits (nil if unknown)
       def parent_size_bits(parent_name)
