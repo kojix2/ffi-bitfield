@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module FFI
   module BitField
     # ClassMethods provides methods for defining bit field layouts.

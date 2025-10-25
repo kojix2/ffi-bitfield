@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'test_helper'
 require 'ffi/bit_struct'
 require 'ffi/managed_bit_struct'

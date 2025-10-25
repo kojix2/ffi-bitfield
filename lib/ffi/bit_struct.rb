@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'ffi'
 require_relative 'bit_field/version'
 require_relative 'bit_field/class_methods'

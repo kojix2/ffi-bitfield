@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module FFI
   module BitField
     # InstanceMethods provides methods for reading and writing bit field values.

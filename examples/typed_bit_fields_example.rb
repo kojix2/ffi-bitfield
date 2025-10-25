@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative '../lib/ffi/bit_struct'
 
 # Example demonstrating the new bit_fields_typed method
