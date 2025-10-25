@@ -216,12 +216,14 @@ module FFI
 
         parent_name
       end
+
       private
 
       # Return parent field size in bits (nil if unknown)
       def parent_size_bits(parent_name)
         field = layout[parent_name] # nil if not found
         return nil unless field&.respond_to?(:type)
+
         field.type.size * 8
       end
 
@@ -229,6 +231,7 @@ module FFI
       def validate_total_width(parent_name, widths)
         size = parent_size_bits(parent_name)
         return unless size
+
         total = widths.sum
         raise ArgumentError, "Bit width #{total} exceeds :#{parent_name} size (#{size} bits)" if total > size
       end
