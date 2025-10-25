@@ -40,7 +40,7 @@ module FFI
         parent_name, start, width = member_value_info(member_name)
         if parent_name
           value = get_member_value(parent_name)
-          (value >> start) & ((1 << width) - 1)
+          (value >> start) & max_value_for_width(width)
         else
           get_member_value(member_name)
         end
@@ -74,7 +74,7 @@ module FFI
         parent_name, start, width = field_info
 
         # Calculate max value for this bit width
-        max_value = (1 << width) - 1
+        max_value = max_value_for_width(width)
 
         # Handle negative values by bit-flipping
         if value.negative?
@@ -103,13 +103,38 @@ module FFI
 
         # Update the parent field with the new bit field value
         parent_value = get_member_value(parent_name)
-        mask = ((1 << width) - 1) << start
-        new_value = (parent_value & ~mask) | ((value & ((1 << width) - 1)) << start)
+        mask = create_bitmask(width, start)
+        new_value = (parent_value & ~mask) | ((value & max_value_for_width(width)) << start)
 
         set_member_value(parent_name, new_value)
       end
 
       private
+
+      # Calculates the maximum value that can be stored in the given bit width.
+      # For example: 3 bits can store 0b000 to 0b111, so max is 7
+      #
+      # @param [Integer] width The number of bits
+      # @return [Integer] The maximum value
+      # @example
+      #   max_value_for_width(3)  # => 7 (0b111)
+      #   max_value_for_width(4)  # => 15 (0b1111)
+      def max_value_for_width(width)
+        (1 << width) - 1
+      end
+
+      # Creates a bitmask for extracting or setting bits at a specific position.
+      # For example: width=3, start=2 creates 0b11100 (mask for bits 2,3,4)
+      #
+      # @param [Integer] width The number of bits in the mask
+      # @param [Integer] start The starting bit position (0-indexed from right)
+      # @return [Integer] The bitmask
+      # @example
+      #   create_bitmask(3, 2)  # => 28 (0b11100)
+      #   create_bitmask(2, 0)  # => 3 (0b11)
+      def create_bitmask(width, start)
+        max_value_for_width(width) << start
+      end
 
       # Gets information about a bit field member.
       #
