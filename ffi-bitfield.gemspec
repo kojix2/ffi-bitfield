@@ -6,8 +6,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['kojix2']
   spec.email         = ['2xijok@gmail.com']
 
-  spec.summary       = 'bit fields for Ruby-FFI'
-  spec.description   = 'bit fields for Ruby-FFI'
+  spec.summary       = 'Bit fields for Ruby-FFI'
+  spec.description   = 'Provides bit field support for FFI::Struct and FFI::ManagedStruct'
   spec.homepage      = 'https://github.com/kojix2/ffi-bitfield'
   spec.license       = 'MIT'
 
