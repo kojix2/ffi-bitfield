@@ -6,13 +6,13 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.37
+    &mdash; Documentation by YARD 0.9.44
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" />
+  <link rel="stylesheet" href="css/style.css" type="text/css">
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" />
+  <link rel="stylesheet" href="css/common.css" type="text/css">
 
 <script type="text/javascript">
   pathId = "README";
@@ -27,6 +27,8 @@
 
   </head>
   <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
     <div class="nav_wrap">
       <iframe id="nav" src="class_list.html?1"></iframe>
       <div id="resizer"></div>
@@ -57,35 +59,25 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'>
-<h1 id="label-ffi-bitfield">ffi-bitfield</h1>
-
-<p><a href="https://badge.fury.io/rb/ffi-bitfield"><img src="https://badge.fury.io/rb/ffi-bitfield.svg" alt="Gem Version"></a> <a href="https://github.com/kojix2/ffi-bitfield/actions/workflows/ci.yml"><img src="https://github.com/kojix2/ffi-bitfield/actions/workflows/ci.yml/badge.svg" alt="test"></a> <a href="https://tokei.kojix2.net/github/kojix2/ffi-bitfield"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Ftokei.kojix2.net%2Fbadge%2Fgithub%2Fkojix2%2Fffi-bitfield%2Flines" alt="Lines of Code"></a></p>
-
+      <div id="content"><div id='filecontents'><h1 id="ffi_bitfield">ffi-bitfield</h1>
+<p><a href="https://badge.fury.io/rb/ffi-bitfield"><img src="https://badge.fury.io/rb/ffi-bitfield.svg" alt="Gem Version" /></a>
+<a href="https://github.com/kojix2/ffi-bitfield/actions/workflows/ci.yml"><img src="https://github.com/kojix2/ffi-bitfield/actions/workflows/ci.yml/badge.svg" alt="test" /></a>
+<a href="https://tokei.kojix2.net/github/kojix2/ffi-bitfield"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Ftokei.kojix2.net%2Fbadge%2Fgithub%2Fkojix2%2Fffi-bitfield%2Flines" alt="Lines of Code" /></a></p>
 <p>Bit field for <a href="https://github.com/ffi/ffi">Ruby-FFI</a></p>
-
-<h2 id="label-Installation">Installation</h2>
-
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_ffi'>ffi</span><span class='op'>-</span><span class='id identifier rubyid_bitfield'>bitfield</span>
+<h2 id="Installation">Installation</h2>
+<pre class="code sh"><code class="sh">gem install ffi-bitfield
 </code></pre>
-
-<h2 id="label-Usage">Usage</h2>
-
+<h2 id="Usage">Usage</h2>
 <p>Classes</p>
-<ul><li>
-<p>class BitStruct &lt; FFI::Struct</p>
-</li><li>
-<p>class ManagedBitStruct &lt; FFI::ManagedStruct</p>
-</li></ul>
-
+<ul>
+<li>class BitStruct &lt; FFI::Struct</li>
+<li>class ManagedBitStruct &lt; FFI::ManagedStruct</li>
+</ul>
 <p>Loading</p>
-
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ffi/bit_struct</span><span class='tstring_end'>&#39;</span></span>
 <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ffi/managed_bit_struct</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
-
 <p>Define your struct</p>
-
 <pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>Struct1</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FFI/BitStruct.html" title="FFI::BitStruct (class)">BitStruct</a></span></span>
   <span class='id identifier rubyid_layout'>layout</span> \
     <span class='symbol'>:a</span><span class='comma'>,</span> <span class='symbol'>:uint8</span><span class='comma'>,</span>
@@ -100,9 +92,7 @@
     <span class='symbol'>:z</span><span class='comma'>,</span> <span class='int'>1</span>
 <span class='kw'>end</span>
 </code></pre>
-
 <p>Reading</p>
-
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='const'>Struct1</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
 
 <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:a</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>63</span>
@@ -113,9 +103,7 @@
 </span><span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:y</span><span class='rbracket'>]</span> <span class='comment'># 0
 </span><span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:z</span><span class='rbracket'>]</span> <span class='comment'># 0
 </span></code></pre>
-
 <p>Writing</p>
-
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='const'>Struct1</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
 
 <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:u</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>0</span>
@@ -125,11 +113,8 @@
 <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:y</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>1</span>
 <span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_s'>s</span><span class='lbracket'>[</span><span class='symbol'>:a</span><span class='rbracket'>]</span> <span class='comment'># 64
 </span></code></pre>
-
-<h3 id="label-Typed+Bit+Fields">Typed Bit Fields</h3>
-
+<h3 id="Typed_Bit_Fields">Typed Bit Fields</h3>
 <p>You can use the <code>bit_fields_typed</code> method to define bit fields with type information. This method accepts a hash where keys are field names and values are arrays containing <code>[width, type]</code>. For boolean fields (width of 1 with <code>:bool</code> type), it automatically generates a <code>?</code> helper method:</p>
-
 <pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>AccessFlags</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FFI/BitStruct.html" title="FFI::BitStruct (class)">BitStruct</a></span></span>
   <span class='id identifier rubyid_layout'>layout</span> \
     <span class='symbol'>:flags</span><span class='comma'>,</span> <span class='symbol'>:uint8</span>
@@ -151,13 +136,9 @@
 <span class='id identifier rubyid_flags'>flags</span><span class='lbracket'>[</span><span class='symbol'>:expired</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>1</span>
 <span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_flags'>flags</span><span class='period'>.</span><span class='id identifier rubyid_expired?'>expired?</span>  <span class='comment'># =&gt; true
 </span></code></pre>
-
 <p>The <code>?</code> methods are only generated for fields that are 1 bit wide and have type <code>:bool</code>. Other field types can be used for documentation purposes and future functionality.</p>
-
-<h3 id="label-Inspecting+Bit+Fields">Inspecting Bit Fields</h3>
-
+<h3 id="Inspecting_Bit_Fields">Inspecting Bit Fields</h3>
 <p>You can use the <code>bit_field_members</code> method to get a hash of bit fields grouped by parent field:</p>
-
 <pre class="code ruby"><code class="ruby"><span class='kw'>class</span> <span class='const'>Flags</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="FFI.html" title="FFI (module)">FFI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FFI/BitStruct.html" title="FFI::BitStruct (class)">BitStruct</a></span></span>
   <span class='id identifier rubyid_layout'>layout</span> \
     <span class='symbol'>:value</span><span class='comma'>,</span> <span class='symbol'>:uint8</span>
@@ -172,9 +153,7 @@
 <span class='id identifier rubyid_p'>p</span> <span class='const'>Flags</span><span class='period'>.</span><span class='id identifier rubyid_bit_field_members'>bit_field_members</span>
 <span class='comment'># =&gt; {:value=&gt;[:read, :write, :execute, :unused]}
 </span></code></pre>
-
 <p>For more detailed information, you can use the <code>bit_field_layout</code> method:</p>
-
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_p'>p</span> <span class='const'>Flags</span><span class='period'>.</span><span class='id identifier rubyid_bit_field_layout'>bit_field_layout</span>
 <span class='comment'># =&gt; {
 </span><span class='comment'>#      :value =&gt; {
@@ -185,51 +164,38 @@
 </span><span class='comment'>#      }
 </span><span class='comment'>#    }
 </span></code></pre>
-
 <p>These methods are useful for custom pretty printing or introspection of your bit struct classes.</p>
-
-<h3 id="label-Loading">Loading</h3>
-
+<h3 id="Loading">Loading</h3>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ffi/bit_field</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
-
 <p>The above is the same as below.</p>
-
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ffi/bit_struct</span><span class='tstring_end'>&#39;</span></span>
 <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ffi/managed_bit_struct</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
-
-<h2 id="label-Development">Development</h2>
-
+<h2 id="Development">Development</h2>
 <pre class="code ruby"><code class="ruby">git clone https://github.com/kojix2/ffi-bitfield
 cd ffi-bitfield
 bundle install
 bundle exec rake test
 </code></pre>
-<ul><li>
-<p><a href="https://dev.to/kojix2/ffi-bitfield-g4h">ffi-bitfield - read/write bit fields with Ruby-FFI</a></p>
-</li></ul>
-
-<h2 id="label-Contributing">Contributing</h2>
-
+<ul>
+<li><a href="https://dev.to/kojix2/ffi-bitfield-g4h">ffi-bitfield - read/write bit fields with Ruby-FFI</a></li>
+</ul>
+<h2 id="Contributing">Contributing</h2>
 <p>Your feedback is important.</p>
-
-<p>ffi-bitfield is a library under development, so even small improvements like typofix are welcome! Please feel free to send us your pull requests. Bug reports and pull requests are welcome on GitHub at <a href="https://github.com/kojix2/ffi-bitfield">github.com/kojix2/ffi-bitfield</a>.</p>
-
+<p>ffi-bitfield is a library under development, so even small improvements like typofix are welcome! Please feel free to send us your pull requests.
+Bug reports and pull requests are welcome on GitHub at <a href="https://github.com/kojix2/ffi-bitfield">https://github.com/kojix2/ffi-bitfield</a>.</p>
 <pre class="code ruby"><code class="ruby">Do you need commit rights to my repository?
 Do you want to get admin rights and take over the project?
 If so, please feel free to contact me @kojix2.
 </code></pre>
-
-<h2 id="label-License">License</h2>
-
-<p>The gem is available as open source under the terms of the <a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
-</div></div>
+<h2 id="License">License</h2>
+<p>The gem is available as open source under the terms of the <a href="https://opensource.org/licenses/MIT">MIT License</a>.</p></div></div>
 
       <div id="footer">
-  Generated on Tue Dec  2 04:05:25 2025 by
+  Generated on Tue Jun 23 00:13:09 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.7).
+  0.9.44 (ruby-4.0.5).
 </div>
 
     </div>

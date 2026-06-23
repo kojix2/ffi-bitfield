@@ -6,13 +6,13 @@
 <title>
   Module: FFI::BitField::InstanceMethods
   
-    &mdash; Documentation by YARD 0.9.37
+    &mdash; Documentation by YARD 0.9.44
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css">
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css">
 
 <script type="text/javascript">
   pathId = "FFI::BitField::InstanceMethods";
@@ -27,6 +27,8 @@
 
   </head>
   <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
     <div class="nav_wrap">
       <iframe id="nav" src="../../class_list.html?1"></iframe>
       <div id="resizer"></div>
@@ -83,16 +85,16 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/ffi/bit_field/instance_methods.rb</dd>
+    <dd>lib/ffi/bit_field/instance_methods.rb
+</dd>
   </dl>
   
 </div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
-<p>InstanceMethods provides methods for reading and writing bit field values. This module is included in BitStruct and ManagedBitStruct classes.</p>
-
+    <p>InstanceMethods provides methods for reading and writing bit field values.
+This module is included in BitStruct and ManagedBitStruct classes.</p>
 
   </div>
 </div>
@@ -131,9 +133,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Reads a value from a bit field or regular field.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Reads a value from a bit field or regular field.</p></div></span>
   
 </li>
 
@@ -155,9 +155,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Writes a value to a bit field or regular field.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Writes a value to a bit field or regular field.</p></div></span>
   
 </li>
 
@@ -179,9 +177,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns a hash of bit fields grouped by parent field.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Returns a hash of bit fields grouped by parent field.</p></div></span>
   
 </li>
 
@@ -203,14 +199,13 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Returns a hash of bit fields with their bit offsets, grouped by parent field.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'><p>Returns a hash of bit fields with their bit offsets, grouped by parent field.</p></div></span>
   
 </li>
 
       
     </ul>
+    
   
 
 
@@ -230,9 +225,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Reads a value from a bit field or regular field.</p>
-
+    <p>Reads a value from a bit field or regular field.</p>
 
   </div>
 </div>
@@ -242,9 +235,7 @@
     <h4 class="tag_title">Examples:</h4>
     
       
-        <h5 class="example_title"><div class='inline'>
-<p>Reading a bit field</p>
-</div></h5>
+        <h5 class="example_title"><div class='inline'><p>Reading a bit field</p></div></h5>
       
       <pre class="example code"><code><span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='symbol'>:flag1</span><span class='rbracket'>]</span>  <span class='comment'># =&gt; 1</span></code></pre>
     
@@ -262,9 +253,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>The name of the field to read</p>
-</div>
+        <div class='inline'><p>The name of the field to read</p></div>
       
     </li>
   
@@ -281,9 +270,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>The value of the field</p>
-</div>
+        <div class='inline'><p>The value of the field</p></div>
       
     </li>
   
@@ -333,9 +320,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Writes a value to a bit field or regular field.</p>
-
+    <p>Writes a value to a bit field or regular field.</p>
 
   </div>
 </div>
@@ -345,16 +330,12 @@
     <h4 class="tag_title">Examples:</h4>
     
       
-        <h5 class="example_title"><div class='inline'>
-<p>Writing to a bit field</p>
-</div></h5>
+        <h5 class="example_title"><div class='inline'><p>Writing to a bit field</p></div></h5>
       
       <pre class="example code"><code><span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='symbol'>:flag1</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>1</span></code></pre>
     
       
-        <h5 class="example_title"><div class='inline'>
-<p>Writing a negative value (bit-flipped)</p>
-</div></h5>
+        <h5 class="example_title"><div class='inline'><p>Writing a negative value (bit-flipped)</p></div></h5>
       
       <pre class="example code"><code><span class='id identifier rubyid_struct'>struct</span><span class='lbracket'>[</span><span class='symbol'>:field</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='op'>-</span><span class='int'>1</span>  <span class='comment'># Sets all bits to 1</span></code></pre>
     
@@ -372,9 +353,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>The name of the field to write</p>
-</div>
+        <div class='inline'><p>The name of the field to write</p></div>
       
     </li>
   
@@ -388,9 +367,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>The value to write</p>
-</div>
+        <div class='inline'><p>The value to write</p></div>
       
     </li>
   
@@ -407,9 +384,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>The written value</p>
-</div>
+        <div class='inline'><p>The written value</p></div>
       
     </li>
   
@@ -425,9 +400,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>If the value is too large for the bit field</p>
-</div>
+        <div class='inline'><p>If the value is too large for the bit field</p></div>
       
     </li>
   
@@ -439,9 +412,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>If the value is too small (negative) for the bit field</p>
-</div>
+        <div class='inline'><p>If the value is too small (negative) for the bit field</p></div>
       
     </li>
   
@@ -453,9 +424,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>If the member name is not a valid bit field</p>
-</div>
+        <div class='inline'><p>If the member name is not a valid bit field</p></div>
       
     </li>
   
@@ -467,9 +436,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>If the value is not an Integer</p>
-</div>
+        <div class='inline'><p>If the value is not an Integer</p></div>
       
     </li>
   
@@ -597,9 +564,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns a hash of bit fields grouped by parent field. Instance method version of the class method with the same name.</p>
-
+    <p>Returns a hash of bit fields grouped by parent field.
+Instance method version of the class method with the same name.</p>
 
   </div>
 </div>
@@ -609,9 +575,7 @@
     <h4 class="tag_title">Examples:</h4>
     
       
-        <h5 class="example_title"><div class='inline'>
-<p>Get bit field members in a struct instance</p>
-</div></h5>
+        <h5 class="example_title"><div class='inline'><p>Get bit field members in a struct instance</p></div></h5>
       
       <pre class="example code"><code><span class='id identifier rubyid_flags'>flags</span> <span class='op'>=</span> <span class='const'>Flags</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
 <span class='id identifier rubyid_flags'>flags</span><span class='period'>.</span><span class='id identifier rubyid_bit_field_members'>bit_field_members</span>  <span class='comment'># =&gt; {:value =&gt; [:read, :write, :execute, :unused]}</span></code></pre>
@@ -629,9 +593,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>A hash where keys are parent field names and values are arrays of bit field names</p>
-</div>
+        <div class='inline'><p>A hash where keys are parent field names and values are arrays of bit field names</p></div>
       
     </li>
   
@@ -669,9 +631,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
-<p>Returns a hash of bit fields with their bit offsets, grouped by parent field.</p>
-
+    <p>Returns a hash of bit fields with their bit offsets, grouped by parent field.</p>
 
   </div>
 </div>
@@ -681,9 +641,7 @@
     <h4 class="tag_title">Examples:</h4>
     
       
-        <h5 class="example_title"><div class='inline'>
-<p>Get bit field offsets in a struct instance</p>
-</div></h5>
+        <h5 class="example_title"><div class='inline'><p>Get bit field offsets in a struct instance</p></div></h5>
       
       <pre class="example code"><code><span class='id identifier rubyid_flags'>flags</span> <span class='op'>=</span> <span class='const'>Flags</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
 <span class='id identifier rubyid_flags'>flags</span><span class='period'>.</span><span class='id identifier rubyid_bit_field_offsets'>bit_field_offsets</span>
@@ -704,9 +662,7 @@
       
       
         &mdash;
-        <div class='inline'>
-<p>A hash where keys are parent field names and values are arrays of [bit_field_name, bit_offset] pairs</p>
-</div>
+        <div class='inline'><p>A hash where keys are parent field names and values are arrays of [bit_field_name, bit_offset] pairs</p></div>
       
     </li>
   
@@ -738,9 +694,9 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Dec  2 04:05:26 2025 by
+  Generated on Tue Jun 23 00:13:09 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.7).
+  0.9.44 (ruby-4.0.5).
 </div>
 
     </div>
